@@ -1,0 +1,4 @@
+git status - difference between local files and remote files
+git add -A - adds all the files to the staging area
+git commit -m "message here" - saves changes
+git pull/push a5 master - retrieves/puts files onto the remote
