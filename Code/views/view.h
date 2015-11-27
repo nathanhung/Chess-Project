@@ -1,3 +1,5 @@
+#ifndef VIEW_H
+#define VIEW_H
 
 class View {
 
@@ -9,3 +11,5 @@ class View {
 	View();
 	virtual ~View() = 0;
 };
+
+#endif

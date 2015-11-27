@@ -1,4 +1,5 @@
-
+#ifndef CHESSPIECE_H
+#define CHESSPIECE_H
 class Player;
 
 class ChessPiece {
@@ -8,3 +9,4 @@ class ChessPiece {
 	ChessPiece(char type);
 	virtual ~ChessPiece() = 0;
 };
+#endif

@@ -1,3 +1,6 @@
+#ifndef TEXTDISPLAY_H
+#define TEXTDISPLAY_H
+
 #include "view.h"
 
 class TextDisplay: public View{
@@ -6,3 +9,5 @@ class TextDisplay: public View{
 	TextDisplay();
 	virtual ~TextDisplay();
 };
+
+#endif

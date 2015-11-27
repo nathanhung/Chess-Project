@@ -1,3 +1,5 @@
+#ifndef TILE_H
+#define TILE_H
 #include "pieces/chesspiece.h"
 
 class Game;
@@ -16,3 +18,4 @@ public:
 	void setCoords(int row, int col);
 	bool checkValid(int row, int col); // what was this for again?
 };
+#endif

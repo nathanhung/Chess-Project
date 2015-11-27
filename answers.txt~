@@ -17,18 +17,3 @@ Answer: If I was to implement an undo feature, I would store each player's moves
 Question: Variations on chess abound. For example, four-handed chess is a variant that is played
 by four players (search for it!). Outline the changes that would be necessary to make your program
 into a four-handed chess game.
-
-
-Answer: In order to modify our program to allow for four players, we would first need to change the initial setup of the board. Instead of initializing an 8x8 board, we would need to initialize a 14x14 board and ensure that certain tiles are out of range. As well, much more game logic would have to be implemented as there would be many more possibilities. For player's who start on the left or right side, the pawns would move horizontally rather than vertially, so we would modify the pawn class to allow for this change. The game class would also need to keep track of four players instead of two. Everytime a move is made, more checks would be needed to see if pieces could be taken on following turns.
-
-
-In four player chess, there are single and team variations. For the single variation, once a player is checkmated, we would need to implement a method that either deletes all of the pieces belonging to that player, or transfer ownership of remaining pieces to the player that checkmated the losing player. For the team variation, we would need to modify the way checkmate is determined. When one king is checkmated, a check to see if the other king is also checkmated is done to determine whether a draw or win is the outcome.  
-
-Additionally, the computer's strategy algorithm's would have to be much more rigorous in considering which pieces it can capture and which pieces it can be captured by. This is also varied in the team version considerably because there is 2 opponents versus 3 and team based play opens up the possibility for a team attack and coordination.
-
-
-Question: Assuming you have already implemented all the commands specified in the Command
-Interpreter, how would you implement loading a pre-saved game with maximal code reuse?
-
-Answer: With the functionality of the command interpreter already defined, loading of a saved game would not be difficult to implement. One could simply use the defined setup command, parsing each character in the save file and creating a new game based on those details. The setup function would have to be manipulated slight to account for input such as more than one queen but less than 8 pawns and other combinations that could arise from pawn promotions. It would also need to keep track of unique events such as castling and en pasant. 
-
