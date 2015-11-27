@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-TextDisplay::TextDisplay(){
+TextDisplay::TextDisplay(int n): View(n){
 
 char** arr = new char* [9];
   for(int i = 0; i < 9; ++i){
@@ -85,4 +85,8 @@ void TextDisplay::print(){
 		}
 		cout << endl;
 	}
+}
+
+void TextDisplay::notify(int row, int col, char newChar){
+    theDisplay[row][col] = newChar;
 }

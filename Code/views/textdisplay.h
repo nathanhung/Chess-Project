@@ -6,9 +6,10 @@
 class TextDisplay: public View{
 	char** theDisplay;
 public:
-	TextDisplay();
+	TextDisplay(int n);
 	virtual ~TextDisplay();
 	void print();
+	virtual void notify(int row, int col, char newChar);
 };
 
 #endif
