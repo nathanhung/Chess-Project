@@ -1,3 +1,5 @@
+Questions and Answers
+
 Question: Chess programs usually come with a book of standard opening move sequences. These
 are moves from classical strategies that many chess players have memorized. A standard opening
 move sequence is typically a list of accepted opening moves and responses to opponents’ moves, for
