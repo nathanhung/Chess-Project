@@ -10,7 +10,8 @@ class Tile;
 class Player {
 	Tile** theGrid;
 	ChessPiece* pieces;
-
+	int numPieces;
+	
 public:
 	Player();
 	virtual ~Player() = 0;
