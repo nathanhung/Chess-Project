@@ -5,9 +5,10 @@
 
 class TextDisplay: public View{
 	char** theDisplay;
-
+public:
 	TextDisplay();
 	virtual ~TextDisplay();
+	void print();
 };
 
 #endif
