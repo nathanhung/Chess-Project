@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>130</y>
+      <x>440</x>
+      <y>150</y>
       <w>230</w>
       <h>260</h>
     </coordinates>
@@ -14,9 +14,9 @@
 - turn: string
 - BWins: int
 - WWins: int
-- game: Game;
-- view: View;
-- players: Player[2]
+- game: Game*
+- td: TextDisplay*
+- gd: GraphicDisplay*
 --
 + game(Player,Player): void
 + gameNotify(int, char, int, char): void
@@ -31,39 +31,39 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
+      <x>250</x>
       <y>70</y>
-      <w>350</w>
-      <h>80</h>
+      <w>310</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
 game (1)</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;20.0;330.0;20.0;330.0;60.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;20.0;290.0;20.0;290.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1030</x>
-      <y>130</y>
+      <x>750</x>
+      <y>150</y>
       <w>210</w>
-      <h>180</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>/View/
 --
 - GRIDSIZE: const int
 --
-/+ notify(): void = 0/
+/+ notify(): void/
 + View(int)
-/+ ~View() = 0/
-/+ print(): void = 0/
+/+ ~View()/
+/+ print(): void/
 /+ notify(int, int, char): void/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>70</y>
+      <x>600</x>
+      <y>90</y>
       <w>260</w>
       <h>80</h>
     </coordinates>
@@ -74,8 +74,8 @@ view (1)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1130</x>
-      <y>410</y>
+      <x>850</x>
+      <y>370</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
@@ -86,19 +86,19 @@ view (1)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1120</x>
-      <y>300</y>
+      <x>840</x>
+      <y>280</y>
       <w>100</w>
-      <h>130</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0;80.0;90.0;80.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;80.0;70.0;80.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1040</x>
-      <y>380</y>
+      <x>760</x>
+      <y>340</y>
       <w>110</w>
       <h>50</h>
     </coordinates>
@@ -108,17 +108,16 @@ view (1)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>400</y>
+      <x>130</x>
+      <y>370</y>
       <w>220</w>
-      <h>160</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>Tile
 --
 - row: int
 - column: char
-- type: char
-# game: Game*
+- game: Game*
 - piece: ChessPiece
 --
 + notify(int, int, int, int): void
@@ -130,167 +129,184 @@ view (1)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>430</x>
-      <y>250</y>
+      <x>150</x>
+      <y>290</y>
       <w>100</w>
-      <h>170</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
 theGrid (64)</panel_attributes>
-    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1020</x>
-      <y>490</y>
+      <x>740</x>
+      <y>450</y>
       <w>210</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>/Player/
 --
-- theGrid: Tile**
+- theGrid: Tile[8][8]
+- pieces: ChessPiece[16]
 --
 + getMove(): String
 - checkValid(int, char): bool
-- pieces: ChessPiece[16]
 + Player()
-+ ~Player()
+/+ ~Player()/
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>720</y>
+      <x>0</x>
+      <y>740</y>
       <w>100</w>
-      <h>50</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>King
 --
-Player* owner</panel_attributes>
+--
++ King()
+/+ ~KIng()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
-      <y>720</y>
+      <x>120</x>
+      <y>740</y>
       <w>100</w>
-      <h>50</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Queen
 --
-Player* owner</panel_attributes>
+--
++ Queen()
+/+ ~Queen()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>520</x>
-      <y>720</y>
+      <x>240</x>
+      <y>740</y>
       <w>100</w>
-      <h>50</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Rook
 --
-Player* owner</panel_attributes>
+--
++ Rook)
+/+ ~Rook()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
-      <y>720</y>
+      <x>360</x>
+      <y>740</y>
       <w>100</w>
-      <h>50</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Bishop
 --
-Player* owner</panel_attributes>
+--
++ Bishop()
+/+ ~Bishop()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>760</x>
-      <y>720</y>
+      <x>480</x>
+      <y>740</y>
       <w>100</w>
-      <h>50</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Knight
 --
-Player* owner</panel_attributes>
+--
++ Knight()
+/+ ~Knight()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>880</x>
-      <y>720</y>
+      <x>600</x>
+      <y>740</y>
       <w>100</w>
-      <h>50</h>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Pawn
 --
-Player* owner
-</panel_attributes>
+--
++ Pawn()
+/+ ~Pawn()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>250</y>
+      <x>280</x>
+      <y>290</y>
       <w>80</w>
-      <h>170</h>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;
 game (1)</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1030</x>
-      <y>670</y>
+      <x>750</x>
+      <y>690</y>
       <w>90</w>
-      <h>30</h>
+      <h>70</h>
     </coordinates>
-    <panel_attributes>Human</panel_attributes>
+    <panel_attributes>Human
+--
+--
++ Human()
+/+ ~Human()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1140</x>
-      <y>670</y>
+      <x>860</x>
+      <y>690</y>
       <w>100</w>
-      <h>50</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>CPU
 --
 - int: level
-</panel_attributes>
+--
++ CPU()
+/+ ~CPU()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1070</x>
-      <y>620</y>
+      <x>790</x>
+      <y>580</y>
       <w>80</w>
-      <h>70</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60.0;10.0;60.0;30.0;10.0;30.0;10.0;50.0</additional_attributes>
+    <additional_attributes>60.0;10.0;60.0;90.0;10.0;90.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1120</x>
-      <y>640</y>
+      <x>840</x>
+      <y>660</y>
       <w>90</w>
       <h>50</h>
     </coordinates>
@@ -300,26 +316,26 @@ game (1)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>620</x>
-      <y>520</y>
-      <w>420</w>
-      <h>40</h>
+      <x>330</x>
+      <y>550</y>
+      <w>430</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;
 pieces (16)</panel_attributes>
-    <additional_attributes>10.0;20.0;400.0;20.0</additional_attributes>
+    <additional_attributes>10.0;90.0;240.0;90.0;240.0;10.0;410.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>970</x>
-      <y>410</y>
+      <x>690</x>
+      <y>370</y>
       <w>150</w>
       <h>60</h>
     </coordinates>
     <panel_attributes>TextDisplay
 --
-- char** theDisplay
+- theDisplay: char[8][8]
 
 </panel_attributes>
     <additional_attributes/>
@@ -327,51 +343,58 @@ pieces (16)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>370</x>
-      <y>130</y>
+      <x>90</x>
+      <y>120</y>
       <w>270</w>
-      <h>130</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Game
 --
-- theGrid: Tile **
+- turn: char
 - GRIDSIZE: const int
-- controller: Controller&amp;
+- gameNotification: GameNotification*
+- players: Player[2]
+- theGrid: Tile[8][8]
 --
-+ cellNotify(int, char, int, char): void
-+ controllerNotify(int, int, char): void
-</panel_attributes>
++ tileNotify(int, char, int, char): void
++ notifierNotify(int, int, char): void
++ Game(int, Controller&amp;, Player, Player);
+/+ ~Game()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>610</y>
-      <w>100</w>
-      <h>50</h>
+      <x>200</x>
+      <y>590</y>
+      <w>140</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>ChessPiece
 --
-Player* owner</panel_attributes>
+- owner: char
+- type: char
+--
++ ChessPiece()
+/+ ~ChessPiece()/</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>650</y>
+      <x>40</x>
+      <y>680</y>
       <w>230</w>
-      <h>90</h>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>210.0;10.0;210.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
+    <additional_attributes>210.0;10.0;210.0;30.0;10.0;30.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>520</x>
-      <y>680</y>
+      <x>240</x>
+      <y>700</y>
       <w>430</w>
       <h>60</h>
     </coordinates>
@@ -382,8 +405,8 @@ Player* owner</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>440</x>
-      <y>680</y>
+      <x>160</x>
+      <y>700</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -394,8 +417,8 @@ Player* owner</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
-      <y>680</y>
+      <x>280</x>
+      <y>700</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -406,20 +429,8 @@ Player* owner</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>680</x>
-      <y>680</y>
-      <w>30</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=-
-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>800</x>
-      <y>680</y>
+      <x>400</x>
+      <y>700</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -431,24 +442,94 @@ Player* owner</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>520</x>
-      <y>550</y>
-      <w>80</w>
-      <h>80</h>
+      <y>700</y>
+      <w>30</w>
+      <h>60</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
-piece (1)</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>830</x>
-      <y>380</y>
-      <w>210</w>
-      <h>150</h>
+      <x>240</x>
+      <y>510</y>
+      <w>80</w>
+      <h>100</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
--players (2)</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;130.0;190.0;130.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+piece (1)</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>220</y>
+      <w>420</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+
+
+
+
+
+
+
+
+
+players (2)</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;50.0;250.0;400.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>480</x>
+      <y>30</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>GameNotification
+--
+--
+/- viewNotify(int, int, char): void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>100</x>
+      <y>50</y>
+      <w>400</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+gameNotification</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0;380.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>70</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>480</y>
+      <w>420</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+theGrid(64)</panel_attributes>
+    <additional_attributes>400.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>
