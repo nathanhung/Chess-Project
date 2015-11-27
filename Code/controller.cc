@@ -58,7 +58,7 @@ void Controller::makeGame(string p1, string p2){
 Controller::playGame(){
 	string cmd;
 	// int moves;
-	while (cin >> cmd){
+	while (cin >> cmd){ // remember to update view and print after each command
 		// new game
 		if (cmd == "game"){
 			string p1, p2;
@@ -105,7 +105,7 @@ Controller::playGame(){
 					// must notify view
 				}
 			}
-
+			// otherwise just move piece if possible
 			if(turn == 'W'){
 				players[0]->checkValid(curRow, curCol, newRow, newCol);
 			}
@@ -123,7 +123,8 @@ Controller::playGame(){
 				// start accepting input
 				// + - =
 				if(cmd == '+'){
-					string piece, location;
+					char piece;
+					string location;
 					cin >> piece >> location;
 
 					ChessPiece* cp = new ChessPiece(piece);
@@ -140,8 +141,8 @@ Controller::playGame(){
 					else{
 						players[1]->pieces[numPieces] = cp;
 					}
-					// TODO*********************
 					// notify view of the change
+					viewNotify(curRow, curCol, piece);
 				}
 				else if(cmd == '-'){
 					string location;
@@ -155,7 +156,13 @@ Controller::playGame(){
 						delete currentTile->chessPiece;
 						currentTile = NULL;
 					}
-				}
+					if((curRow +curCol) % 2) { // black tile
+						viewNotify(curRow, curCol, '-');
+					}
+					else{
+						viewNotify(curRow, curCol, ' ');	
+					}
+				} 
 				else if(cmd == '='){
 					string colour;
 					cin >> colour;
