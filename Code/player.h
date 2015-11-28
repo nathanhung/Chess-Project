@@ -9,12 +9,15 @@ class Tile;
 
 class Player {
 	Tile** theGrid;
-	ChessPiece* pieces;
-
+	Tile* pieces;
+	int numPieces;
+	
 public:
 	Player();
 	virtual ~Player() = 0;
 	virtual string getMove() = 0;
+	void setGrid(Tile** theGrid);
+	void addPiece(Tile piece);
 };
 
 #endif

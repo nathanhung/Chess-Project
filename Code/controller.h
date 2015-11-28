@@ -6,6 +6,8 @@ using namespace std;
 class View;
 class Game;
 class Player;
+class TextDisplay;
+class GraphicDisplay;
 
 class Controller {
 	string turn;
