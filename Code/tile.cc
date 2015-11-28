@@ -15,4 +15,10 @@ void Tile::setCoords(int row, int col) {
 	column = col;
 }
 
-bool Tile::checkValid(int row, int col) {}
+bool Tile::checkValid(int newRow, int newCol) {
+	if (piece != NULL) {
+		return piece->checkMove(row, col, newRow, newCol); // checks if move is valid
+	} else {
+		return false;
+	}
+}

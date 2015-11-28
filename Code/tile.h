@@ -16,6 +16,6 @@ class Tile {
 public:
 	void notify(int row1, int col1, int row2, int col2);
 	void setCoords(int row, int col);
-	bool checkValid(int row, int col); // what was this for again?
+	bool checkValid(int newRow, int newCol); // is the move valid? If no piece return true
 };
 #endif
