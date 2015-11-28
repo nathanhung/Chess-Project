@@ -10,7 +10,7 @@ class Game {
 	Controller& controller; // change this to gameNotification?
 	Player* players;
 
-	Game(int n, Controller& controller, Player* p1, Player* p2. char turn);
+	Game(int n, Controller& controller, Player* p1, Player* p2, char turn);
 	virtual ~Game() = 0;
 };
 #endif
