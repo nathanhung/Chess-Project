@@ -2,8 +2,6 @@
 
 class King: public ChessPiece {
 	~King();
-	bool checkMove(int row, int col);
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 }
-
-
 

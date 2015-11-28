@@ -11,7 +11,7 @@ class Tile {
 public:
 	Tile();
 	virtual ~Tile();
-	void notify(int row1, int col1, int row2, int col2);
+	void notify(int curRow, int curCol, int newRow, int newCol);
 	void setCoords(int row, int col);
 	bool checkValid(int newRow, int newCol); // is the move valid? If no piece return true
 	void setPiece(ChessPiece* cp);

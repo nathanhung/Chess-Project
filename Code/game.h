@@ -15,5 +15,8 @@ public:
 	Game(int n, Controller& controller, Player* p1, Player* p2, char turn);
 	virtual ~Game();
 	void setPlayer(Player* p, int index);
+
+	void tileNotify(int curRow, char curCol, int curRow, char curCol);
+	void notifierNotify(int row, int col, char piece);
 };
 #endif

@@ -7,9 +7,9 @@ class ChessPiece {
 	char type;
 
 	public:
-		ChessPiece();
+		ChessPiece(char owner, char type); //ctor
 		virtual ~ChessPiece() = 0;
-		virtual checkMove(int row1, int col1, int row2, int col2) = 0;
+		virtual bool checkMove(int curRow, int curCol, int newRow, int newCol) = 0;
 		
 }
 
