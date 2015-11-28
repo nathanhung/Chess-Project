@@ -5,8 +5,8 @@ class Player;
 class ChessPiece {
 	Player* owner;
 	char type;
-
+public:
 	ChessPiece(char type);
-	virtual ~ChessPiece() = 0;
+	virtual ~ChessPiece();
 };
 #endif

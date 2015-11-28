@@ -1,17 +1,15 @@
 #include "controller.h"
 #include <iostream>
 #include "game.h"
-#include "textdisplay.h"
-#include "graphicdisplay.h"
+#include "views/textdisplay.h"
+#include "views/graphicdisplay.h"
 #include <string>
 #include <cstdlib>
 using namespace std;
 
-Controller::Controller(){
-	game = NULL;
-	td = new TextDisplay();
+Controller::Controller(): game(NULL){
+	td = new TextDisplay(8);
 	//gd = new GraphicDisplay():
-	players = NULL;
 }
 
 Controller::~Controller(){

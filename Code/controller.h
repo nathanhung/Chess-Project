@@ -6,13 +6,15 @@ using namespace std;
 class View;
 class Game;
 class Player;
+class TextDisplay;
+class GraphicDisplay;
 
 class Controller {
 	string turn;
 	int BWins, WWins;
 	Game* game;
-	TextDisplay* td;
-	GraphicDisplay* gd;
+	View* td;
+	View* gd;
 public:
 	void playGame(); // command interpreter for game
 	void makeGame(string p1, string p2); // starts a new game when "game player player" is read in
