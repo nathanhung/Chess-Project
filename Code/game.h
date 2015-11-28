@@ -11,8 +11,9 @@ class Game {
 	const int GRIDSIZE;
 	Controller& controller; // change this to gameNotification?
 	Player* players[2];
-
+public:
 	Game(int n, Controller& controller, Player* p1, Player* p2, char turn);
 	virtual ~Game();
+	void setPlayer(Player* p, int index);
 };
 #endif

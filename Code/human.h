@@ -3,9 +3,9 @@
 
 class Human: public Player{
 public:
-	Human();
-	virtual ~Human() = 0;
-	virtual string getMove();
+	Human(Tile** theGrid);
+	virtual ~Human();
+	//virtual string getMove();  Is this needed?
 };
 
 #endif

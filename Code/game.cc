@@ -27,16 +27,19 @@ Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GR
 	    		else{
 	    			arr[i][j].setPiece(new ChessPiece('k'));
 	    		}
+	    		players[1]->addPiece(arr[i][j]);
 	    	}
 
 	    	// do second row
 	    	else if(i == 1){
 	    		arr[i][j].setPiece(new ChessPiece('p'));
+	    		players[1]->addPiece(arr[i][j]);
 	    	}
 
 	    	// seventh row
 	    	else if(i == 6){
 	    		arr[i][j].setPiece(new ChessPiece('P'));
+	    		players[0]->addPiece(arr[i][j]);
 	    	}
 
 	    	// eigth row	
@@ -56,12 +59,16 @@ Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GR
 	    		else{
 	    			arr[i][j].setPiece(new ChessPiece('Q'));
 	    		}
+	    		players[0]->addPiece(arr[i][j]);
 	    	}
 	    	arr[i][j].setGame(this);
 	    	arr[i][j].setCoords(i, j);
     	}
   }
   theGrid = arr;
+
+  players[0]->setGrid(theGrid);
+  players[1]->setGrid(theGrid);
 }
 
 Game::~Game(){
@@ -69,4 +76,8 @@ Game::~Game(){
 		delete [] theGrid[i];
 	}
 	delete theGrid;
+}
+
+void Game::setPlayer(Player* p, int index){
+	players[index];
 }

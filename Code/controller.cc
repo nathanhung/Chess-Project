@@ -30,25 +30,27 @@ void Controller::makeGame(string p1, string p2){
 	// player1
 	// if human
 	if (p1 == "human"){
-		players[0] = new Human();
+		game->setPlayer(new Human(), 0);
 	} 
 	// otherwise its a CPU
 	else {
-		int level = p1.back - '0';
-		players[0] = new CPU(level);
+		int level = p1.back() - '0';
+		game->setPlayer(new CPU(level), 0);
 	}
 
 	// player2
 	// if human
 	if (p12== "human"){
-		players[1] = new Human();
+		game->setPlayer(new Human(), 1);
 	} 
 	// otherwise its a CPU
 	else {
-		int level = p2.back - '0';
-		players[1] = new CPU(level);
+		int level = p2.back() - '0';
+		game->setPlayer(new CPU(level), 1);
 	}
+
 	game = new Game(8, *this, players[0], players[1], 'W');
+
 	// TODO
 	// setup views and print 
 }

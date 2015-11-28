@@ -13,8 +13,8 @@ class Controller {
 	string turn;
 	int BWins, WWins;
 	Game* game;
-	View* td;
-	View* gd;
+	TextDisplay* td;
+	GraphicDisplay* gd;
 public:
 	void playGame(); // command interpreter for game
 	void makeGame(string p1, string p2); // starts a new game when "game player player" is read in
