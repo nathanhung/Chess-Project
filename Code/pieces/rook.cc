@@ -1,5 +1,7 @@
 #include "rook.h"
 
+Rook::Rook() {}
+
 Rook::~Rook() {}
 
 bool Rook::checkMove (int curRow, int curCol, int newRow, int newCol) {

@@ -1,5 +1,6 @@
 #include "king.h"
 
+King::King() {} 
 
 King::~king() {} // dtor
 

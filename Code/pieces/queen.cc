@@ -1,7 +1,8 @@
 #include "queen.h"
 
-Queen::~Queen() {}
+Queen::Queen() {}
 
+Queen::~Queen() {}
 
 Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	// check if new position is out of board

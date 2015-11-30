@@ -1,5 +1,7 @@
 #include "pawn.h"
 
+Pawn::Pawn() {}
+
 Pawn::~Pawn() {}
 
 bool Pawn::checkMove(int curRow, int curCol, int newRow, int newCol) {
