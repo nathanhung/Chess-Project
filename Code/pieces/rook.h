@@ -5,7 +5,8 @@
 
 class Rook: public ChessPiece {
 	Rook();
-	virtual ~Rook() = 0;
+	~Rook();
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };
 
 #endif

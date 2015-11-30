@@ -5,7 +5,8 @@
 
 class King: public ChessPiece {
 	King();
-	virtual ~King() = 0;
+	~King();
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };
 
 #endif
