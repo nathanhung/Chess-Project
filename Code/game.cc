@@ -26,6 +26,8 @@ Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GR
 	    		}
 	    		else{
 	    			arr[i][j].setPiece(new King('B','k', this));
+	    			players[0]->setKing1(arr[i][j]);
+	    			players[1]->setKing2(arr[i][j]);
 	    		}
 	    		players[1]->addPiece(arr[i][j]);
 	    	}
@@ -55,6 +57,8 @@ Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GR
 	    		}
 	    		else if(j == 3){
 	    			arr[i][j].setPiece(new King('W', 'K', this));
+	    			players[0]->setKing1(arr[i][j]);
+	    			players[1]->setKing2(arr[i][j]);
 	    		}
 	    		else{
 	    			arr[i][j].setPiece(new Queen('W', 'Q', this));

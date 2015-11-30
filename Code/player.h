@@ -11,6 +11,7 @@ class Player {
 	Tile** theGrid;
 	Tile* pieces;
 	int numPieces;
+	Tile* king1, king2;
 	
 public:
 	Player();
@@ -19,6 +20,9 @@ public:
 	bool checkValid (int curRow, char curCol, int newRow, char newCol);
 	void setGrid(Tile** theGrid);
 	void addPiece(Tile piece);
+	void setKing1(Tile* king);
+	void setKing2(Tile* king);
+
 };
 
 #endif
