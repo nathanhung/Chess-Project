@@ -13,51 +13,51 @@ Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GR
 	    	// do first row
 	    	if(i == 0){
 	    		if(j == 0 || j == 7){
-	    			arr[i][j].setPiece(new ChessPiece('B','r', this));
+	    			arr[i][j].setPiece(new Rook('B','r', this));
 	    		}
 	    		else if(j == 1 || j == 6){
-	    			arr[i][j].setPiece(new ChessPiece('B','n', this));
+	    			arr[i][j].setPiece(new Knight('B','n', this));
 	    		}
 	    		else if(j == 2 || j == 5){
-	    			arr[i][j].setPiece(new ChessPiece('B','b', this));
+	    			arr[i][j].setPiece(new Bishop('B','b', this));
 	    		}
 	    		else if(j == 3){
-	    			arr[i][j].setPiece(new ChessPiece('B','q', this));
+	    			arr[i][j].setPiece(new Queen('B','q', this));
 	    		}
 	    		else{
-	    			arr[i][j].setPiece(new ChessPiece('B','k', this));
+	    			arr[i][j].setPiece(new King('B','k', this));
 	    		}
 	    		players[1]->addPiece(arr[i][j]);
 	    	}
 
 	    	// do second row
 	    	else if(i == 1){
-	    		arr[i][j].setPiece(new ChessPiece('B','p', this));
+	    		arr[i][j].setPiece(new Pawn('B','p', this));
 	    		players[1]->addPiece(arr[i][j]);
 	    	}
 
 	    	// seventh row
 	    	else if(i == 6){
-	    		arr[i][j].setPiece(new ChessPiece('W','P', this));
+	    		arr[i][j].setPiece(new Pawn('W','P', this));
 	    		players[0]->addPiece(arr[i][j]);
 	    	}
 
 	    	// eigth row	
 	    	else if(i == 7){
 	    		if(j == 0 || j == 7){
-	    			arr[i][j].setPiece(new ChessPiece('W', 'R', this));
+	    			arr[i][j].setPiece(new Rook('W', 'R', this));
 	    		}
 	    		else if(j == 1 || j == 6){
-	    			arr[i][j].setPiece(new ChessPiece('W', 'N', this));
+	    			arr[i][j].setPiece(new Knight('W', 'N', this));
 	    		}
 	    		else if(j == 2 || j == 5){
-	    			arr[i][j].setPiece(new ChessPiece('W', 'B', this));
+	    			arr[i][j].setPiece(new Bishop('W', 'B', this));
 	    		}
 	    		else if(j == 3){
-	    			arr[i][j].setPiece(new ChessPiece('W', 'K', this));
+	    			arr[i][j].setPiece(new King('W', 'K', this));
 	    		}
 	    		else{
-	    			arr[i][j].setPiece(new ChessPiece('W', 'Q', this));
+	    			arr[i][j].setPiece(new Queen('W', 'Q', this));
 	    		}
 	    		players[0]->addPiece(arr[i][j]);
 	    	}
