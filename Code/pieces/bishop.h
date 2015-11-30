@@ -4,7 +4,7 @@
 #include "chesspiece.h"
 
 class Bishop: public ChessPiece {
-	Bishop();
+	Bishop(char owner, char type, Game* game);
 	~Bishop();
 	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };

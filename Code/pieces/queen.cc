@@ -1,6 +1,6 @@
 #include "queen.h"
 
-Queen::Queen() {}
+Queen::Queen(char owner, char type, Game* game): ChessPiece(owner, type, game) {}
 
 Queen::~Queen() {}
 

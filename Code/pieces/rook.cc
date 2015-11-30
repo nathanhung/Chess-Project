@@ -1,6 +1,6 @@
 #include "rook.h"
 
-Rook::Rook() {}
+Rook::Rook(char owner, char type, Game* game): ChessPiece(owner, type, game) {}
 
 Rook::~Rook() {}
 
