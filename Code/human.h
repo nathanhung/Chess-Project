@@ -3,7 +3,7 @@
 
 class Human: public Player{
 public:
-	Human(Tile** theGrid);
+	Human();
 	virtual ~Human();
 	//virtual string getMove();  Is this needed?
 };

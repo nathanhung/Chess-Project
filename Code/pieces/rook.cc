@@ -1,4 +1,4 @@
-#include "chessPiece.h"
+#include "rook.h"
 
 Rook::~Rook() {}
 

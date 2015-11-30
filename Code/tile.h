@@ -17,5 +17,7 @@ public:
 	void setPiece(ChessPiece* cp);
 	ChessPiece* getPiece();
 	void setGame(Game* g);
+	int getRow();
+	int getColumn();
 };
 #endif

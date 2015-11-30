@@ -1,0 +1,464 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tim",
+				"time_to_end_of_world"
+			],
+			[
+				"j",
+				"jquery"
+			],
+			[
+				"length",
+				"lengthCheck"
+			],
+			[
+				"name",
+				"name"
+			],
+			[
+				"cin",
+				"cin"
+			],
+			[
+				"cookie",
+				"cookieParser"
+			],
+			[
+				"body",
+				"bodyParser"
+			],
+			[
+				"req",
+				"require"
+			],
+			[
+				"url",
+				"urlRouterProvider"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Code/game.h",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Code/tile.h",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/neil__000/Documents/GitHub/meanTut/app.js",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Code/controller.h",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/F/home/neil/Documents/cs246/1159/a5/chessProject.sublime-project",
+		"/F/home/neil/Documents/cs246/1159/a4/q2/game.cc",
+		"/F/home/neil/Documents/cs246/1159/a4/q3/doublewords.cc",
+		"/F/home/neil/Documents/cs246/1159/a4/q3/dropfirst.cc",
+		"/F/home/neil/Documents/cs246/1159/a4/q3/allcaps.cc",
+		"/F/home/neil/Documents/cs246/1159/a4/q3/count.cc",
+		"/F/home/neil/Documents/cs246/1159/a4/q2/textdisplay.d",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/controllers/homeController.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/services/services.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/views/home.html",
+		"/C/Users/neil__000/Desktop/mainandwall/client/views/retirement.ejs",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/retirement.html",
+		"/C/Users/neil__000/Desktop/mainandwall/server/routes/routes.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/signup.html",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/saving.html",
+		"/C/Users/neil__000/Desktop/validate.cc",
+		"/C/Users/neil__000/Desktop/renameCourseNotes",
+		"/C/Users/neil__000/Desktop/.renameCourseNotes.swp",
+		"/C/Users/neil__000/Desktop/mainandwall/node_modules/mongoose/node_modules/bson/node_modules/bson-ext/ext/index.js",
+		"/C/Users/neil__000/Desktop/mainandwall/node_modules/mongoose/node_modules/bson/node_modules/bson-ext/index.js",
+		"/C/Users/neil__000/Desktop/mainandwall/package.json",
+		"/C/Users/neil__000/Desktop/mainandwall/server/config/passport.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/projects/customerapi.html",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/controllers/projects/customerApiController.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/controllers/projectsController.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/css/custom.css",
+		"/C/Users/neil__000/Desktop/mainandwall/client/views/index.ejs",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/projects.html",
+		"/C/Users/neil__000/Desktop/mainandwall/.gitignore",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/services/Api.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/controllers/savings/reitrementController.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/about.html",
+		"/C/Users/neil__000/Desktop/mainandwall/server/routes/api.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/js/controllers/navController.js",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/importance.html",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/paying-down-debt.html",
+		"/C/Users/neil__000/Desktop/mainandwall/client/partials/retired.html",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/bower.json",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/package.json",
+		"/C/Users/neil__000/Desktop/mainandwall/data/local.0",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/js/controllers/projectsController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/index.ejs",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/server/models/customer.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/js/controllers/navController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/js/controllers/contactController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/js/controllers/homeController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/js/controllers/aboutController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/libs/bootstrap/bootstrap.css",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/js/ie-emulation-modes-warning.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/index.ejs",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/js/controllers/homeController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/js/controllers/contactController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/js/controllers/aboutController.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/partials/contact.html",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/partials/about.html",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/partials/home.html",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/bower.json",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/libs/bootstrap/bootstrap.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/client/views/client/libs/bootstrap/bootstrap.less",
+		"/C/Users/neil__000/Documents/GitHub/mocksite/server.js",
+		"/C/Users/neil__000/Documents/GitHub/mainandwall/README.md",
+		"/C/Users/neil__000/Documents/GitHub/mocksite/public/controllers/mortgageController.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/scope.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/function-arguments.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/functions.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/object-properties.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/objects.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/looping-through-arrays.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/accessing-array-values.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/array-filtering.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/arrays.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/for-loop.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/if-statement.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/number-to-string.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/rounding-numbers.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/numbers.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/revising-strings.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/string-length.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/strings.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/revising-stirngs.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/variables.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/Nodeschool.io/javascripting/introduction.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/contactlistapp/public/index.html",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Nodejs/firstnodeproject/server.js",
+		"/C/Users/neil__000/Documents/Neil's Stuff/University Stuff/COOP/Applications/RPS.Player.NeilBot.txt",
+		"/C/Users/neil__000/Downloads/WishabiScreenerSolutions (2).jpg",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Java/FizzBuzz.java",
+		"/G/Java/Blackjack/BlackJack.java",
+		"/G/Java/Blackjack/BlackJack.html",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/startbootstrap-freelancer-1.0.1/index.html",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/Website/css/freelancer.css",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/Website/includes/css/styles.css",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/Website/index.html",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/Template Site/Course Files/05 - Final Website/index.html",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/Template Site/Course Files/04 - Code Chunks/B - navbar.html",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/styles.css",
+		"/C/Users/neil__000/Documents/Neil's Stuff/Neil's Website/index.html",
+		"/C/Users/neil__000/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"checkWin",
+			"service",
+			"views",
+			"partial",
+			"partials",
+			"session",
+			"serialize",
+			"express-session",
+			"cicle",
+			"easing",
+			"ease",
+			"agency.js",
+			"page-scroll",
+			"name",
+			"#include <iostream>\n#include <sstream>\nusing namespace std;\n\nint main () {\n	string name, number, expiry;\n	int sum = 0, index = 0, n, length;\n	string expMonth, expYear, transNum, dateDay, dateMonth, dateYear, dateTime, amount;\n	char digit;\n\n	// read in the name of the person\n	getline(cin, name);\n	getline(cin, number);\n	getline(cin, expiry);\n\n	cout << name << endl << number << endl << expiry << endl;\n\n	// third line info\n	istringstream issExp(expiry);\n\n	// getting all the info from the stream\n	issExp >> expMonth;\n	issExp >> expYear;\n	issExp >> transNum;\n	issExp >> dateDay;\n	issExp >> dateMonth;\n	issExp >> dateYear;\n	issExp >> dateTime;\n	issExp >> amount;\n\n	// adjusting transaction number \n	while (transNum.length() != 5) {\n		transNum = \"0\" + transNum; \n	}\n\n	// fixing 24 hour time to desired format\n	dateTime = dateTime.substr(0, 2) + \":\" + dateTime.substr(2, 2);\n\n	istringstream iss(number);\n	iss >> number;\n	// getting number of digits in card number\n	length = number.length();\n\n	int array [length];\n	for (int i = 0; i < length; i++) {\n		iss.get(digit);\n		array[i] = digit - '0';\n	}\n	\n	// double every second digit starting at 1 less than the check digit\n	for (int i = length-2; i > 0; i -= 2) {\n			array[i] *= 2;\n			if (array[i] > 9) {\n				array[i] = 1 + (array[i] % 10);\n			}\n	}\n\n	// find sum of the digits of the credit card numbers (after doubling every other from check digit)\n	for (int i = 0; i < length; i++) {\n		sum += array[i]; \n	}\n	// length check\n	bool lengthCheck = (length == 13 || length == 16);\n	// checking to see if the first digit is a 4\n	bool fourCheck = (number.at(0) == '4');\n	// if sum mod 10 is equal to 0\n	bool mod10Check = (sum % 10 == 0);\n\n	// if the credit card number passes all tests, set its value to valid otherwise set it to invalid\n	string validity = (lengthCheck && fourCheck && mod10Check)? \"valid\" : \"invalid\";  \n	cout << transNum << \" \" << dateDay << \"/\" << dateMonth << \"/\" << dateYear << \" \" << dateTime << \" $\" << amount << \" (\" << number << \", \" << name << \", \" << expMonth << \"/\" << expYear << \") \" << validity << endl;\n	\n		\n}",
+			"session",
+			"bootstrap.min.js",
+			"signup",
+			"resave",
+			"partial",
+			"ejs",
+			"app.eng",
+			"apicontroller",
+			"controllers",
+			"customerapi",
+			"routes",
+			"flash",
+			"connect",
+			"passport",
+			"routes",
+			"expressSess",
+			"express",
+			"local",
+			"seria",
+			"user",
+			"firstname",
+			">",
+			"<",
+			"retirement",
+			">",
+			"<",
+			"ng-model",
+			"ng-mdeol",
+			"controller",
+			"homeController",
+			"navbar-fixed-top.css",
+			"ng-view",
+			"myApp",
+			"throw",
+			"total",
+			"contact me",
+			"your",
+			"about",
+			"download",
+			"about",
+			"star-",
+			"star-light"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"customer",
+			"email"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Code/game.h",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Code/tile.h",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/neil__000/Documents/GitHub/meanTut/app.js",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Code/controller.h",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 117.0,
+	"status_bar_visible": true
+}

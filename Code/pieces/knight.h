@@ -1,11 +1,10 @@
-#ifndef KNIGHT_H
-#define KNIGHT_H
+#ifndef KING_H
+#define KING_H
 
-#include "../chesspiece.h"
+#include "chesspiece.h"
 
 class Knight: public ChessPiece {
-	Knight();
-	virtual ~Knight() = 0;
+	~Knight();
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };
-
 #endif

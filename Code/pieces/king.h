@@ -1,11 +1,11 @@
 #ifndef KING_H
 #define KING_H
 
-#include "../chesspiece.h"
+#include "chesspiece.h"
 
 class King: public ChessPiece {
-	King();
-	virtual ~King() = 0;
+	~King();
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };
 
 #endif

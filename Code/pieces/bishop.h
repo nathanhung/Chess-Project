@@ -1,11 +1,10 @@
 #ifndef BISHOP_H
 #define BISHOP_H
 
-#include "../chesspiece.h"
+#include "chesspiece.h"
 
 class Bishop: public ChessPiece {
-	Bishop();
-	virtual ~Bishop() = 0;
+	~Bishop();
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };
-
 #endif

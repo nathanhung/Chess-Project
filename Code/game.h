@@ -3,6 +3,7 @@
 #include "tile.h"
 #include "pieces/chesspiece.h"
 #include "player.h"
+
 class Controller;
 class Player;
 class Game {
@@ -16,7 +17,7 @@ public:
 	virtual ~Game();
 	void setPlayer(Player* p, int index);
 
-	void tileNotify(int curRow, char curCol, int curRow, char curCol);
+	void tileNotify(int curRow, char curCol, int newRow, char newCol);
 	void notifierNotify(int row, int col, char piece);
 };
 #endif

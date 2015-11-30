@@ -1,11 +1,10 @@
 #ifndef QUEEN_H
 #define QUEEN_H
 
-#include "../chesspiece.h"
+#include "chesspiece.h"
 
 class Queen: public ChessPiece {
-	Queen();
-	virtual ~Queen() = 0;
+	~Queen();
+	bool checkMove(int curRow, int curCol, int newRow, int newCol);
 };
-
 #endif

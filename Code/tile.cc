@@ -10,11 +10,10 @@ Tile::~Tile(){
 }
 
 void Tile::notify (int row1, int col1, int row2, int col2) {
-	if (piece) {
+	if(piece) {
 		game->notifierNotify(row2, col2, piece->type);
 	} 
-	else 
-	{
+	else {
 		char c = ((row2 + col2) % 2)? ' ' : '-';
 		game->notifierNotify(row2, col2, c);
 	} 
@@ -31,6 +30,7 @@ bool Tile::checkValid(int newRow, int newCol) {
 	} else {
 		return false;
 	}
+}
 
 void Tile::setPiece(ChessPiece* cp){
 	piece = cp;
@@ -42,4 +42,12 @@ ChessPiece* Tile::getPiece(){
 
 void Tile::setGame(Game* g){
 	game = g;
+}
+
+int Tile::getRow(){
+	return row;
+}
+
+int Tile::getColumn(){
+	return column;
 }

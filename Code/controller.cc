@@ -34,18 +34,18 @@ void Controller::makeGame(string p1, string p2){
 	} 
 	// otherwise its a CPU
 	else {
-		int level = p1.back() - '0';
+		int level = p1.at(8) - '0';
 		game->setPlayer(new CPU(level), 0);
 	}
 
 	// player2
 	// if human
-	if (p12== "human"){
+	if (p2 == "human"){
 		game->setPlayer(new Human(), 1);
 	} 
 	// otherwise its a CPU
-	else {
-		int level = p2.back() - '0';
+	else { // we have computer1
+		int level = p2.at(8) - '0';
 		game->setPlayer(new CPU(level), 1);
 	}
 
