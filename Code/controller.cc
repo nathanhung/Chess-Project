@@ -9,7 +9,7 @@
 #include <cstdlib>
 using namespace std;
 
-Controller::Controller(): game(NULL){
+Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0){
 	td = new TextDisplay(8);
 	//gd = new GraphicDisplay():
 }
@@ -57,7 +57,8 @@ void Controller::playGame(){
 		}
 		else if(cmd == "move"){
 			// REMEMBER THE NUMBERS ARE INVERTED
-			string spot1, spot2, pieceType;
+			string spot1, spot2;
+			char pieceType;
 			cin >> spot1 >> spot2;
 
 			int curRow = toIndex(spot1.at(1) - '0');
@@ -97,9 +98,9 @@ void Controller::playGame(){
 				// valid move, check for capture
 				if(newTile->getPiece()){
 					char type = newTile->getPiece()->getType();
-					if(type.islower()){ // piece is black, we are white
+					if(type >= 'a' && type <= 'z'){ // piece is black, we are white
 						// delete it and replace all pointers to NULL
-						game->players[1]->removePiece(newTile);
+						game->getPlayer(1)->removePiece(newTile);
 						delete newTile->getPiece();
 					}
 				}
@@ -112,17 +113,17 @@ void Controller::playGame(){
 				// valid move, check for capture
 				if(newTile->getPiece()){
 					char type = newTile->getPiece()->getType();
-					if(type.isupper()){ // piece is white, we are black
+					if(type >= 'A' && type <= 'Z'){ // piece is white, we are black
 						// delete it and replace all pointers to NULL
-						game->players[0]->removePiece(newTile);
+						game->getPlayer(0)->removePiece(newTile);
 						delete newTile->getPiece();
 					}
 				}
 			}
 			// must change coords and notify view here
-			game->theGrid[curRow][curCol]->setCoords(newRow, newCol);
-			game->theGrid[newRow][newCol]->setCoords(curRow, curCol);
-			game->swap(currentTile, newTile);
+			game->getTile(curRow, curCol)->setCoords(newRow, newCol);
+			game->getTile(newRow, newCol)->setCoords(curRow, curCol);
+			game->swapTiles(currentTile, newTile);
 			if(currentTile->getPiece()){
 				
 			}
@@ -135,13 +136,14 @@ void Controller::playGame(){
 		// setup
 		else if(cmd == "setup"){
 			delete game;
-			makeGame();
+			makeGame("human", "human");
 			cin >> cmd;
 
 			while(cmd != "done"){
+				char op = cmd.at(0);
 				// start accepting input
 				// + - =
-				if(cmd == '+'){
+				if(op == '+'){
 					char piece;
 					string location;
 					cin >> piece >> location;
@@ -154,7 +156,7 @@ void Controller::playGame(){
 					Tile* currentTile = game->getTile[curRow][curCol];
 					currentTile->getPiece() = cp;
 
-					if(piece.isupper()){
+					if(piece >= 'A' && piece <= 'Z'){
 						game->getPlayer(0)->pieces[numPieces] = cp;
 					}
 					else{
@@ -163,7 +165,7 @@ void Controller::playGame(){
 					// notify view of the change
 					viewNotify(curRow, curCol, piece);
 				}
-				else if(cmd == '-'){
+				else if(op == '-'){
 					string location;
 
 					cin >> location;
@@ -182,7 +184,7 @@ void Controller::playGame(){
 						viewNotify(curRow, curCol, ' ');	
 					}
 				} 
-				else if(cmd == '='){
+				else if(op == '='){
 					string colour;
 					cin >> colour;
 					if(colour == "white"){

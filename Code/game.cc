@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller){
+Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn){
 
 	// player1
 	// if human
@@ -92,9 +92,7 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    	arr[i][j].setCoords(i, j);
     	}
   }
-  theGrid = arr;
-
-  	
+  theGrid = arr;  	
 }
 
 Game::~Game(){
@@ -132,4 +130,8 @@ void Game::swapTiles(Tile* currentTile, Tile* newTile){
 	Tile* temp = currentTile;
 	theGrid[curRow][curCol] = newTile;
 	theGrid[newRow][newCol] = temp;
+}
+
+Tile* Game::getTile(int row, int col){
+	return theGrid[row][column];
 }
