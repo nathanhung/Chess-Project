@@ -69,12 +69,13 @@ void Controller::playGame(){
 			// first check if its a pawn then see if spot2 is the edge of the board
 			// through game->getTile 
 			Tile* currentTile = game->getTile(curRow, curCol);
+			Tile* newTile = game->getTile(newRow, newCol);
 			if(currentTile->getPiece()){ //if there is a chessPiece at the first coord
 				// check to see if its a pawn
 				if(currentTile->getPiece()->getType() == 'p' && newRow == 7){
 					// pawn promotion happening for BLACK
 					cin >> pieceType; // piece player wants for promotion
-					game->getPlayer(1)->promotePawn(curRow, curCol, pieceType); // what fields are required here?
+					game->promotePawn(curRow, curCol, pieceType); // what fields are required here?
 					// TODO
 					continue;// same as below
 				}
@@ -88,12 +89,48 @@ void Controller::playGame(){
 			}
 			// otherwise just move piece if possible
 			if(turn == 'W'){
-				game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol);
+				if(!game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){
+					cout << "Invalid Move." << endl; 
+					continue;
+				}
+
+				// valid move, check for capture
+				if(newTile->getPiece()){
+					char type = newTile->getPiece()->getType();
+					if(type.islower()){ // piece is black, we are white
+						// delete it and replace all pointers to NULL
+						game->players[1]->removePiece(newTile);
+						delete newTile->getPiece();
+					}
+				}
 			}
 			else {
-				game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol);
+				if(!game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol)){
+					cout << "Invalid Move." << endl; 
+					continue;
+				}
+				// valid move, check for capture
+				if(newTile->getPiece()){
+					char type = newTile->getPiece()->getType();
+					if(type.isupper()){ // piece is white, we are black
+						// delete it and replace all pointers to NULL
+						game->players[0]->removePiece(newTile);
+						delete newTile->getPiece();
+					}
+				}
 			}
 			// must change coords and notify view here
+			game->theGrid[curRow][curCol]->setCoords(newRow, newCol);
+			game->theGrid[newRow][newCol]->setCoords(curRow, curCol);
+			game->swap(currentTile, newTile);
+			if(currentTile->getPiece()){
+				
+			}
+			if(newTile->getPiece()){
+
+			}
+			viewNotify(newRow, newCol, newTile->getPiece()->getType());
+			viewNotify(curRow, curCol, currentTile->getPiece()->getType());
 		}
 		// setup
 		else if(cmd == "setup"){

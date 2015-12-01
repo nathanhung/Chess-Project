@@ -23,5 +23,6 @@ public:
 	void setTile(int row, int col, Tile* tile);
 	Player* getPlayer(int n);
 	void promotePawn(int row, int col, char pieceType);
+	void swapTiles(Tile* currentTile, Tile* newTile);
 };
 #endif

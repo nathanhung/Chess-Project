@@ -9,16 +9,18 @@ class Tile;
 
 class Player {
 	Tile** theGrid;
-	Tile* pieces;
+	Tile* pieces[16];
 	int numPieces;
-	Tile* king1, king2;
+	Tile* king1,* king2;
 	
 public:
 	Player();
 	virtual ~Player() = 0;
 	bool checkValid (int curRow, char curCol, int newRow, char newCol);
 	void setGrid(Tile** theGrid);
-	void addPiece(Tile piece);
+	Tile* getPiece(int index);
+	void addPiece(Tile* piece);
+	void removePiece(Tile* tile);
 	void setKing1(Tile* king);
 	void setKing2(Tile* king);
 	void promotePawn(char pieceType);

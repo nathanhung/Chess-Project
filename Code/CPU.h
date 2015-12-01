@@ -1,5 +1,7 @@
 #ifndef CPU_H
 #define CPU_H
+#include <string>
+#include "player.h"
 
 class CPU: public Player {
 	const int level; // can be 1 to 4+
@@ -10,6 +12,6 @@ class CPU: public Player {
 public:
 	CPU(int level);
 	virtual ~CPU();
-	string getMove();
+	std::string getMove();
 };
 #endif

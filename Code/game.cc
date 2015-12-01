@@ -52,19 +52,19 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    			players[0]->setKing1(arr[i][j]);
 	    			players[1]->setKing2(arr[i][j]);
 	    		}
-	    		players[1]->addPiece(arr[i][j]);
+	    		players[1]->addPiece(&arr[i][j]);
 	    	}
 
 	    	// do second row
 	    	else if(i == 1){
 	    		arr[i][j].setPiece(new Pawn('B','p', this));
-	    		players[1]->addPiece(arr[i][j]);
+	    		players[1]->addPiece(&arr[i][j]);
 	    	}
 
 	    	// seventh row
 	    	else if(i == 6){
 	    		arr[i][j].setPiece(new Pawn('W','P', this));
-	    		players[0]->addPiece(arr[i][j]);
+	    		players[0]->addPiece(&arr[i][j]);
 	    	}
 
 	    	// eigth row	
@@ -86,7 +86,7 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    		else{
 	    			arr[i][j].setPiece(new Queen('W', 'Q', this));
 	    		}
-	    		players[0]->addPiece(arr[i][j]);
+	    		players[0]->addPiece(&arr[i][j]);
 	    	}
 	    	arr[i][j].setGame(this);
 	    	arr[i][j].setCoords(i, j);
@@ -118,5 +118,18 @@ Player* Game::getPlayer(int n){
 }
 
 void Game::promotePawn(int row, int col, char pieceType){
-	theGrid[row][col]->getPiece()->setType(pieceType);
+
+	theGrid[row][col]->getPiece()->setType(new pieceType);
+}
+
+void Game::swapTiles(Tile* currentTile, Tile* newTile){
+	int curRow = currentTile.getRow();
+	int curCol = currentTile.getColumn();
+
+	int newRow = newTile.getRow();
+	int newCol = newTile.getColumn();
+	
+	Tile* temp = currentTile;
+	theGrid[curRow][curCol] = newTile;
+	theGrid[newRow][newCol] = temp;
 }
