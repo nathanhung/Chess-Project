@@ -2,7 +2,7 @@
 
 ChessPiece::ChessPiece(char owner, char type, Game* game): owner(owner), type(type), game(game) {}
 
-ChessPiece::~ChessPiece(){}
+ChessPiece::~ChessPiece() {}
 
 char ChessPiece::getType(){
 	return type;
