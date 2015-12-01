@@ -1,6 +1,6 @@
 #include "pawn.h"
 
-Pawn::Pawn() {}
+Pawn::Pawn(char owner, char type, Game* game): ChessPiece(owner, type, game) {}
 
 Pawn::~Pawn() {}
 

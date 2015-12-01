@@ -1,9 +1,8 @@
 #include "bishop.h"
 
-Bishop::Bishop() {}
+Bishop::Bishop(string owner, string type, Game *game): ChessPiece(owner, type, game) {}
 
 Bishop::~Bishop() {}
-
 
 bool Bishop::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	// check if new position is out of board

@@ -1,6 +1,6 @@
 #include "king.h"
 
-King::King() {} 
+King::King(char owner, char type, Game* game): ChessPiece(owner, type, game) {} 
 
 King::~king() {} // dtor
 
