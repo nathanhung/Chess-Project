@@ -2,6 +2,8 @@
 #include <ctime>
 #include <cstdlib>
 
+using namespace std;
+
 CPU::CPU(int level): level(level){}
 
 CPU::~CPU(){}
