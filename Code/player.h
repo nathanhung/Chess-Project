@@ -16,13 +16,12 @@ class Player {
 public:
 	Player();
 	virtual ~Player() = 0;
-	virtual string getMove() = 0;
 	bool checkValid (int curRow, char curCol, int newRow, char newCol);
 	void setGrid(Tile** theGrid);
 	void addPiece(Tile piece);
 	void setKing1(Tile* king);
 	void setKing2(Tile* king);
-
+	void promotePawn(char pieceType);
 };
 
 #endif

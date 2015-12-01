@@ -8,8 +8,8 @@ class CPU: public Player {
 	// level 3 is saving pieces > capturing > checks > random
 	// level 4 is something more elaborate > saving pieces > capturing > checks > random
 public:
-	CPU();
+	CPU(int level);
 	virtual ~CPU();
-	virtual string getMove();
+	string getMove();
 };
 #endif

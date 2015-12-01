@@ -1,8 +1,31 @@
 #include "game.h"
 
-Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GRIDSIZE(n), controller(controller){
-	players[0] = p1;
-	players[1] = p2;
+Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller){
+
+	// player1
+	// if human
+	if (p1 == "human"){
+		players[0] = new Human();
+	} 
+	// otherwise its a CPU
+	else {
+		int level = p1.at(8) - '0';
+		players[0] = new CPU(level);
+	}
+
+	// player2
+	// if human
+	if (p2 == "human"){
+		players[1] = new Human();
+	} 
+	// otherwise its a CPU
+	else { // we have computer1
+		int level = p2.at(8) - '0';
+		players[1] = new CPU(level);
+	}
+  	players[0]->setGrid(theGrid);
+  	players[1]->setGrid(theGrid);
+
 
 	// setup theGrid
 	Tile** arr = new Tile* [GRIDSIZE];
@@ -71,8 +94,7 @@ Game::Game(int n, Controller& controller, Player* p1, Player* p2, char turn): GR
   }
   theGrid = arr;
 
-  players[0]->setGrid(theGrid);
-  players[1]->setGrid(theGrid);
+  	
 }
 
 Game::~Game(){
@@ -84,4 +106,17 @@ Game::~Game(){
 
 void Game::setPlayer(Player* p, int index){
 	players[index];
+}
+
+char Game::getTurn(){
+	return turn;
+}
+
+Player* Game::getPlayer(int n){
+	assert(players);
+	return players[n];
+}
+
+void Game::promotePawn(int row, int col, char pieceType){
+	theGrid[row][col]->getPiece()->setType(pieceType);
 }

@@ -5,7 +5,6 @@ class Human: public Player{
 public:
 	Human();
 	virtual ~Human();
-	//virtual string getMove();  Is this needed?
 };
 
 #endif

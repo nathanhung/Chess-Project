@@ -13,11 +13,15 @@ class Game {
 	Controller& controller; // change this to gameNotification?
 	Player* players[2];
 public:
-	Game(int n, Controller& controller, Player* p1, Player* p2, char turn);
+	Game(int n, Controller& controller, string p1, string p2, char turn);
 	virtual ~Game();
 	void setPlayer(Player* p, int index);
-
 	void tileNotify(int curRow, char curCol, int newRow, char newCol);
 	void notifierNotify(int row, int col, char piece);
+	char getTurn();
+	Tile* getTile(int row, int col);
+	void setTile(int row, int col, Tile* tile);
+	Player* getPlayer(int n);
+	void promotePawn(int row, int col, char pieceType);
 };
 #endif

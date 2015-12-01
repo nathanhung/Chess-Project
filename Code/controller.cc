@@ -3,6 +3,8 @@
 #include "game.h"
 #include "views/textdisplay.h"
 #include "views/graphicdisplay.h"
+#include "human.h"
+#include "CPU.h"
 #include <string>
 #include <cstdlib>
 using namespace std;
@@ -27,35 +29,14 @@ int toIndex(int n){
 }
 
 void Controller::makeGame(string p1, string p2){
-	// player1
-	// if human
-	if (p1 == "human"){
-		game->setPlayer(new Human(), 0);
-	} 
-	// otherwise its a CPU
-	else {
-		int level = p1.at(8) - '0';
-		game->setPlayer(new CPU(level), 0);
-	}
-
-	// player2
-	// if human
-	if (p2 == "human"){
-		game->setPlayer(new Human(), 1);
-	} 
-	// otherwise its a CPU
-	else { // we have computer1
-		int level = p2.at(8) - '0';
-		game->setPlayer(new CPU(level), 1);
-	}
-
-	game = new Game(8, *this, players[0], players[1], 'W');
+	
+	game = new Game(8, *this, p1, p2, 'W');
 
 	// TODO
 	// setup views and print 
 }
 
-Controller::playGame(){
+void Controller::playGame(){
 	string cmd;
 	// int moves;
 	while (cin >> cmd){ // remember to update view and print after each command
@@ -63,10 +44,10 @@ Controller::playGame(){
 		if (cmd == "game"){
 			string p1, p2;
 			cin >> p1 >> p2;
-			makeGame();
+			makeGame(p1, p2);
 		}
 		else if(cmd == "resign"){
-			if(game->turn == 'W'){
+			if(game->getTurn() == 'W'){
 				WWins++;
 			}
 			else{
@@ -77,7 +58,7 @@ Controller::playGame(){
 		else if(cmd == "move"){
 			// REMEMBER THE NUMBERS ARE INVERTED
 			string spot1, spot2, pieceType;
-			cmd >> spot1 >> spot2;
+			cin >> spot1 >> spot2;
 
 			int curRow = toIndex(spot1.at(1) - '0');
 			int newRow = toIndex(spot2.at(1) - '0');
@@ -86,32 +67,33 @@ Controller::playGame(){
 
 			// remember to check for pawn promotion
 			// first check if its a pawn then see if spot2 is the edge of the board
-			// through game->theGrid 
-			Tile currentTile = game->theGrid(curRow, curCol);
-			if(currentTile->chessPiece){ //if there is a chessPiece at the first coord
+			// through game->getTile 
+			Tile* currentTile = game->getTile(curRow, curCol);
+			if(currentTile->getPiece()){ //if there is a chessPiece at the first coord
 				// check to see if its a pawn
-				if(currentTile->chessPiece->pieceType == 'p' && newRow == 7){
+				if(currentTile->getPiece()->getType() == 'p' && newRow == 7){
 					// pawn promotion happening for BLACK
 					cin >> pieceType; // piece player wants for promotion
-					players[1]->promotePawn(); // what fields are required here?
+					game->getPlayer(1)->promotePawn(curRow, curCol, pieceType); // what fields are required here?
 					// TODO
 					continue;// same as below
 				}
-				else if(currentTile->chessPiece->pieceType == 'P' && newRow == 0){
+				else if(currentTile->getPiece()->getType() == 'P' && newRow == 0){
 					// pawn promotion happening for WHITE
 					cin >> pieceType; // piece player wants for promotion
-					players[1]->promotePawn();
+					game->promotePawn(curRow, curCol, pieceType);
 					continue; // cant  do this, must redisplay board
 					// must notify view
 				}
 			}
 			// otherwise just move piece if possible
 			if(turn == 'W'){
-				players[0]->checkValid(curRow, curCol, newRow, newCol);
+				game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol);
 			}
 			else {
-				players[1]->checkValid(curRow, curCol, newRow, newCol);
+				game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol);
 			}
+			// must change coords and notify view here
 		}
 		// setup
 		else if(cmd == "setup"){
@@ -132,14 +114,14 @@ Controller::playGame(){
 					int curCol = toIndex(location.at(0));
 
 					// set piece at location
-					Tile* currentTile = game->theGrid[curRow][curCol];
-					currentTile->chessPiece = cp;
+					Tile* currentTile = game->getTile[curRow][curCol];
+					currentTile->getPiece() = cp;
 
 					if(piece.isupper()){
-						players[0]->pieces[numPieces] = cp;
+						game->getPlayer(0)->pieces[numPieces] = cp;
 					}
 					else{
-						players[1]->pieces[numPieces] = cp;
+						game->getPlayer(1)->addPiece(cp);
 					}
 					// notify view of the change
 					viewNotify(curRow, curCol, piece);
@@ -151,9 +133,9 @@ Controller::playGame(){
 					int curRow = toIndex(location.at(1));
 					int curCol = toIndex(location.at(0));
 
-					Tile* currentTile = game->theGrid[curRow][curCol];
-					if(currentTile->chessPiece){
-						delete currentTile->chessPiece;
+					Tile* currentTile = game->getTile[curRow][curCol];
+					if(currentTile->getPiece()){
+						delete currentTile->getPiece();
 						currentTile = NULL;
 					}
 					if((curRow +curCol) % 2) { // black tile
@@ -167,10 +149,10 @@ Controller::playGame(){
 					string colour;
 					cin >> colour;
 					if(colour == "white"){
-						game->turn = 'W';
+						game->getTurn() = 'W';
 					}
 					else{
-						game->turn = 'B';
+						game->getTurn() = 'B';
 					}
 				}
 				else{
