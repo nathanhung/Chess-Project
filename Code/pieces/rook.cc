@@ -7,18 +7,33 @@ Rook::~Rook() {}
 bool Rook::checkMove (int curRow, int curCol, int newRow, int newCol) {
 	if (newRow !<= 7 || newRow !>= 0) return false;
         if (newCol !<= 7 || newCol !>= 0) return false; // check if new position is out of board
+	if (curRow == newRow && curCol == newCol) return false; 	
+
+	// check if piece is reachable from current position
+	if !(curRow == newRow || curCol == newCol) return false;
 	
-	for (int row = curRow; row <= 7; row++) {
-		if (row == newRow && curCol == newCol) return true;
+	// check if a chess piece is in the way of old position to new position
+	if (curRow == newRow) {
+		if (curCol < newCol) {
+			for (int i = curCol; i < newCol; i++) {
+				if (game->getTile(newRow, i)->getPiece()) return false;
+			}	
+		} else {
+			for (int i = curCol; i > newCol; i--) {
+				if (game->getTile(newRow, i)->getPiece()) return false;
+			}
+		}
 	}
-	for (int row = curRow; row >= 0; row--) {
-		if (row == newRow && curCol == newCol) return true;
-	} 
-	for (int col = curCol; col <= 7; col++) {
-		if (col == newCol && curRow == newRow) return true;
+	if (curCol == newCol) {
+		if (curRow < newRow) {
+			for (int i = curRow; i < newRow; i++) {
+				if (game->getTile(i, newCol)->getPiece()) return false;
+			}
+		} else {
+			for (int i = curRow; i > newRow; i--) {
+				if (game->getTile(i, newCol)->getPiece()) return false;
+			}
+		}
 	}
-	for (int col = curCol; col >= 0; col--) {
-		if (col == newCol && curRow == newRow) return true;
-	}
-	return false;
+	return true;
 }

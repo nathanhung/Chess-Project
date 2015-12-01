@@ -8,13 +8,35 @@ bool Bishop::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	// check if new position is out of board
         if (newRow !<= 7 || newRow !>= 0) return false;
         if (newCol !<= 7 || newCol !>= 0) return false;
-
+	if (curRow == newRow || curCol == newCol) return false;
+	
 	// check if its a valid diagonal move
+	int reached = 0;
 	for (int i = 1; i <= 7; i++) {
-                if (curRow - i == newRow && curCol + i == newCol) return true;
-                if (curRow + i == newRow && curCol + i == newCol) return true;
-                if (curRow + i == newRow && curCol - i == newCol) return true;
-                if (curRow - i == newRow && curCol - i == newCol) return true;
+                if (curRow - i == newRow && curCol + i == newCol) reached = 1;
+                if (curRow + i == newRow && curCol + i == newCol) reached = 1;
+                if (curRow + i == newRow && curCol - i == newCol) reached = 1;
+                if (curRow - i == newRow && curCol - i == newCol) reached = 1;
         }
-        return false;	
+        if (reached = 0) return false;
+
+	// check if pieces are in the way
+	if (curRow > newRow && curCol > newCol) {
+		for (int i = curRow, int j = curCol; i > newRow && j > newCol; i--, j--) {
+			if (game->getTile(i, j)->getPiece()) return false;
+		} 
+	} else if (curRow < newRow && curCol > newCol) {
+		for (int i = curRow, int j = curCol; i < newRow, j > newCol; i++, j--) {
+			if (game->getTile(i, j)->getPiece()) return false;
+		}
+	} else if (curRow > newRow && curCol < newCol) {
+		for (int i = curRow, int j = curCol; i > newRow, j < newCol; i--, j++) {
+                        if (game->getTile(i, j)->getPiece()) return false;
+                }
+	} else if (curRow > newRow && curCol > newCol) {
+		for (int i = curRow, int j = curCol; i > newRow, j > newCol; i--, j--) {
+                        if (game->getTile(i, j)->getPiece()) return false;
+                }
+	}
+	return true;
 }
