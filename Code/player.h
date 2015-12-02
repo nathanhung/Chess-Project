@@ -5,6 +5,8 @@
 using namespace std;
 
 class ChessPiece;
+class Tile;
+
 class Player {
 protected:
 	Tile** theGrid;
