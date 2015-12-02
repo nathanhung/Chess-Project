@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
+#include <string>
 #include "tile.h"
 #include "pieces/chesspiece.h"
-#include "player.h"
+#include "controller.h"
 
-class Controller;
 class Player;
 class Game {
 	char turn; // 'W' = player1's turn, 'B' = player2's turn
@@ -13,7 +13,7 @@ class Game {
 	Controller& controller; // change this to gameNotification?
 	Player* players[2];
 public:
-	Game(int n, Controller& controller, string p1, string p2, char turn);
+	Game(int n, Controller& controller, std::string p1, std::string p2, char turn);
 	virtual ~Game();
 	void setPlayer(Player* p, int index);
 	void tileNotify(int curRow, char curCol, int newRow, char newCol);

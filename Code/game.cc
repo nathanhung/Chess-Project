@@ -1,5 +1,14 @@
 #include "game.h"
-#include "controller.h"
+#include <cassert>
+#include "player.h"
+#include "human.h"
+#include "CPU.h"
+#include "pieces/pawn.h"
+#include "pieces/rook.h"
+#include "pieces/knight.h"
+#include "pieces/king.h"
+#include "pieces/queen.h"
+#include "pieces/bishop.h"
 
 Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn){
 
@@ -50,8 +59,8 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    		}
 	    		else{
 	    			arr[i][j].setPiece(new King('B','k', this));
-	    			players[0]->setKing1(arr[i][j]);
-	    			players[1]->setKing2(arr[i][j]);
+	    			players[0]->setKing1(&arr[i][j]);
+	    			players[1]->setKing2(&arr[i][j]);
 	    		}
 	    		players[1]->addPiece(&arr[i][j]);
 	    	}
@@ -81,8 +90,8 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    		}
 	    		else if(j == 3){
 	    			arr[i][j].setPiece(new King('W', 'K', this));
-	    			players[0]->setKing1(arr[i][j]);
-	    			players[1]->setKing2(arr[i][j]);
+	    			players[0]->setKing1(&arr[i][j]);
+	    			players[1]->setKing2(&arr[i][j]);
 	    		}
 	    		else{
 	    			arr[i][j].setPiece(new Queen('W', 'Q', this));
@@ -121,42 +130,41 @@ Player* Game::getPlayer(int n){
 }
 
 void Game::promotePawn(int row, int col, char pieceType){
-
-	theGrid[row][col]->getPiece()->setType(new pieceType);
+	theGrid[row][col].getPiece()->setType(pieceType);
 }
 
 void Game::swapTiles(Tile* currentTile, Tile* newTile){
-	int curRow = currentTile.getRow();
-	int curCol = currentTile.getColumn();
+	int curRow = currentTile->getRow();
+	int curCol = currentTile->getColumn();
 
-	int newRow = newTile.getRow();
-	int newCol = newTile.getColumn();
+	int newRow = newTile->getRow();
+	int newCol = newTile->getColumn();
 	
 	Tile* temp = currentTile;
-	theGrid[curRow][curCol] = newTile;
-	theGrid[newRow][newCol] = temp;
+	theGrid[curRow][curCol] = *newTile;
+	theGrid[newRow][newCol] = *temp;
 }
 
 Tile* Game::getTile(int row, int col){
-	return theGrid[row][column];
+	return &theGrid[row][col];
 }
 
 bool Game::checkBoard(){
 	Player* p1 = getPlayer(0);
 	Player* p2 = getPlayer(1);
-	int pieces1 = p1.getNumPieces();
-	int pieces2 = p2.getNumPieces();
+	int pieces1 = p1->getNumPieces();
+	int pieces2 = p2->getNumPieces();
 
 	// more than 1 king
 	int wKings = 0;
 	int bKings = 0;
 	for(int i = 0; i < pieces1; i++){
-		if(p1.getPiece(i)->getPiece()->getType() == 'K'){
+		if(p1->getPiece(i)->getPiece()->getType() == 'K'){
 			wKings++;
 		}
 	}
 	for(int i = 0; i < pieces2; i++){
-		if(p2.getPiece(i)->getPiece()->getType() == 'k'){
+		if(p2->getPiece(i)->getPiece()->getType() == 'k'){
 			bKings++;
 		}
 	}
@@ -166,11 +174,11 @@ bool Game::checkBoard(){
 	// pawns in unplaceable spots
 	for(int i = 0; i < 8; i++){
 		// check first row for 'p'
-		if(game->getTile(0, i)->getPiece() == 'p'){
+		if(getTile(0, i)->getPiece()->getType() == 'p'){
 			return false;
 		}
 		// check seventh row for 'P'
-		if(game->getTile(7, i)->getPiece() == 'P'){
+		if(getTile(7, i)->getPiece()->getType() == 'P'){
 			return false;
 		}
 	}
@@ -179,5 +187,5 @@ bool Game::checkBoard(){
 }
 
 void notifierNotify(int row, int col, char piece){
-	controller->viewNotify(row, col, piece);
+	controller.viewNotify(row, col, piece);
 }

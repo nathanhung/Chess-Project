@@ -1,8 +1,13 @@
 #include "player.h"
 #include "tile.h"
 #include "pieces/chesspiece.h"
+#include <cstdlib>
 
-Player::Player(): theGrid(NULL), numPieces(0), pieces(NULL), king1(NULL), king2(NULL){}
+Player::Player(): theGrid(NULL), numPieces(0), king1(NULL), king2(NULL){
+	for(int i = 0; i < 16; i++){
+		pieces[i] = NULL;
+	}
+}
 
 void Player::setGrid(Tile** theGrid){
 	theGrid = theGrid;
@@ -42,4 +47,12 @@ void Player::removePiece(Tile* tile){
 
 int Player::getNumPieces(){
 	return numPieces;
+}
+
+void Player::setKing1(Tile* king){
+	king1 = king;
+}
+
+void Player::setKing2(Tile* king){
+	king2 = king;
 }
