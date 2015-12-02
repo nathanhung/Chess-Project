@@ -10,7 +10,7 @@ class CPU: public Player {
 	// level 3 is saving pieces > capturing > checks > random
 	// level 4 is something more elaborate > saving pieces > capturing > checks > random
 public:
-	CPU(int level);
+	CPU(int number, int level);
 	virtual ~CPU();
 	std::string getMove();
 };

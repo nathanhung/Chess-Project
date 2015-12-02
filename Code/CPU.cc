@@ -6,7 +6,7 @@
 #include "tile.h"
 using namespace std;
 
-CPU::CPU(int level): Player(), level(level){}
+CPU::CPU(int number, int level): Player(number), level(level){}
 
 CPU::~CPU(){}
 

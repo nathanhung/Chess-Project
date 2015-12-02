@@ -26,11 +26,11 @@ Controller::~Controller(){
 	//delete gd;
 }
 
-int toIndex(char c){
+int Controller::toIndex(char c){
 	return  c - 'a';
 }
 // assumes we have an integer (do - '0')
-int toIndex(int n){
+int Controller::toIndex(int n){
 	return  8 - n;
 }
 

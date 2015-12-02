@@ -4,7 +4,7 @@
 
 class Human: public Player{
 public:
-	Human();
+	Human(int number);
 	virtual ~Human();
 };
 

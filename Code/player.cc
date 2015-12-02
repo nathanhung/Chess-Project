@@ -2,15 +2,17 @@
 #include "tile.h"
 #include "pieces/chesspiece.h"
 #include <cstdlib>
+#include "game.h"
 
-Player::Player(): theGrid(NULL), numPieces(0), king1(NULL), king2(NULL){
+Player::Player(int number): game(NULL), numPieces(0), king1(NULL), king2(NULL), playerNumber(number){
 	for(int i = 0; i < 16; i++){
 		pieces[i] = NULL;
 	}
 }
+Player::~Player(){}
 
-void Player::setGrid(Tile** theGrid){
-	theGrid = theGrid;
+void Player::setGame(Game* game){
+	game = game;
 }
 
 void Player::addPiece(Tile* piece){
@@ -48,11 +50,31 @@ void Player::removePiece(Tile* tile){
 int Player::getNumPieces(){
 	return numPieces;
 }
+// checks if move is possible based on current position and desired position
+bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
+	// find the tile at cur
+	Tile* currentTile = game->getTile(curRow, curCol);
+	Tile* newTile = game->getTile(newRow, newCol);
 
-void Player::setKing1(Tile* king){
-	king1 = king;
-}
+	// ASSUME IT IS THIS PLAYER'S PIECE AND HE HAS THE POWER TO MOVE IT
+	// check if new position is empty or has an enemy piece
+	// or more simply, return false if the new pos is our OWN piece
+	char pieceType;
+	if(newTile->getPiece()){
+		char pieceType = newTile->getPiece()->getType();
+	}
+	// check for player's own pieces at new spot
+	if(playerNumber == 0 && (pieceType >= 'A' && pieceType <= 'Z')) {
+		return false;
+	}
+	if(playerNumber == 1 && (pieceType >= 'a' && pieceType <= 'z')) {
+		return false;
+	}
+	// check if piece at cur can move to new tile
+	for(int i = 0; i < numPieces; i++){
+		if(!pieces[i]->getPiece()->checkMove(curRow, curCol, newRow, newCol)) { 
+			return false;
+		}
+	}
 
-void Player::setKing2(Tile* king){
-	king2 = king;
 }

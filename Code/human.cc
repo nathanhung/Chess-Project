@@ -1,5 +1,5 @@
 #include "human.h"
 
-Human::Human(): Player(){}
+Human::Human(int number): Player(number){}
 
 Human::~Human(){}

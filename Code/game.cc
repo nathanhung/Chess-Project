@@ -9,32 +9,32 @@
 #include "pieces/king.h"
 #include "pieces/queen.h"
 #include "pieces/bishop.h"
-
+#include "controller.h"
 Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn){
 
 	// player1
 	// if human
 	if (p1 == "human"){
-		players[0] = new Human();
+		players[0] = new Human(0);
 	} 
 	// otherwise its a CPU
 	else {
 		int level = p1.at(8) - '0';
-		players[0] = new CPU(level);
+		players[0] = new CPU(0, level);
 	}
 
 	// player2
 	// if human
 	if (p2 == "human"){
-		players[1] = new Human();
+		players[1] = new Human(1);
 	} 
 	// otherwise its a CPU
 	else { // we have computer1
 		int level = p2.at(8) - '0';
-		players[1] = new CPU(level);
+		players[1] = new CPU(1, level);
 	}
-  	players[0]->setGrid(theGrid);
-  	players[1]->setGrid(theGrid);
+  	players[0]->setGame(this);
+  	players[1]->setGame(this);
 
 
 	// setup theGrid
@@ -186,6 +186,6 @@ bool Game::checkBoard(){
 	return true;
 }
 
-void notifierNotify(int row, int col, char piece){
+void Game::notifierNotify(int row, int col, char piece){
 	controller.viewNotify(row, col, piece);
 }

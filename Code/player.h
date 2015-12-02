@@ -5,19 +5,20 @@ using namespace std;
 
 class ChessPiece;
 class Tile;
-
+class Game;
 class Player {
+	int playerNumber;
 protected:
-	Tile** theGrid;
+	Game* game;
 	Tile* pieces[16];
 	int numPieces;
 	Tile* king1,* king2;
 	
 public:
-	Player();
+	Player(int number);
 	virtual ~Player() = 0;
-	bool checkValid (int curRow, char curCol, int newRow, char newCol);
-	void setGrid(Tile** theGrid);
+	bool checkValid (int curRow, int curCol, int newRow, int newCol);
+	void setGame(Game* game);
 	Tile* getPiece(int index);
 	void addPiece(Tile* piece);
 	void removePiece(Tile* tile);
