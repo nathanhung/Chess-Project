@@ -7,8 +7,8 @@ Queen::~Queen() {}
 
 Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	// check if new position is out of board
-	if (newRow !<= 7 || newRow !>= 0) return false;
-        if (newCol !<= 7 || newCol !>= 0) return false;
+	if (newRow > 7 || newRow < 0) return false;
+        if (newCol > 7 || newCol < 0) return false;
 
 	int reached = 0;
 	int reachByHor = 0;
@@ -66,23 +66,26 @@ Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
         	}		
 	}
 	if (reachByDiag = 1) {
-		if (curRow > newRow && curCol > newCol) {
-                	for (int i = curRow, int j = curCol; i > newRow && j > newCol; i--, j--) {
+		int i = curRow;
+    		int j = curCol;
+        	// check if pieces are in the way
+        	if (curRow > newRow && curCol > newCol) {
+                	for (; i > newRow && j > newCol; i--, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow < newRow && curCol > newCol) {
-                	for (int i = curRow, int j = curCol; i < newRow, j > newCol; i++, j--) {
+                	for (; i < newRow, j > newCol; i++, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol < newCol) {
-                	for (int i = curRow, int j = curCol; i > newRow, j < newCol; i--, j++) {
+                	for (; i > newRow, j < newCol; i--, j++) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol > newCol) {
-                	for (int i = curRow, int j = curCol; i > newRow, j > newCol; i--, j--) {
+                	for (; i > newRow, j > newCol; i--, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
-        	}		
+        	}
 	}
 	return true;
 }
