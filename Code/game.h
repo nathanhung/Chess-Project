@@ -3,8 +3,8 @@
 #include <string>
 #include "tile.h"
 #include "pieces/chesspiece.h"
-#include "controller.h"
 
+class Controller;
 class Player;
 class Game {
 	char turn; // 'W' = player1's turn, 'B' = player2's turn
