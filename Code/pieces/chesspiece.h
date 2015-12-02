@@ -3,9 +3,10 @@
 class Game;
 
 class ChessPiece {
-	char owner;
 	char type;
+protected:
 	Game* game;
+	char owner;
 public:
 	ChessPiece(char owner, char type, Game* game); //ctor
 	virtual ~ChessPiece() = 0;

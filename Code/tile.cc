@@ -1,7 +1,8 @@
 #include "tile.h"
 #include <cstdlib>
-using namespace std;
 #include "game.h"
+#include "pieces/chesspiece.h"
+using namespace std;
 
 Tile::Tile(): game(NULL), piece(NULL){}
 

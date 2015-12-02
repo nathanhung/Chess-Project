@@ -1,6 +1,7 @@
 #include "bishop.h"
+#include "../game.h"
 
-Bishop::Bishop(string owner, string type, Game *game): ChessPiece(owner, type, game) {}
+Bishop::Bishop(char owner, char type, Game *game): ChessPiece(owner, type, game) {}
 
 Bishop::~Bishop() {}
 
