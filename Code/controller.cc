@@ -42,6 +42,10 @@ void Controller::makeGame(string p1, string p2){
 	// setup views and print 
 }
 
+void Controller::viewNotify(int row, int col, char c){
+	td->notify(row, col, c);
+}
+
 void Controller::playGame(){
 	string cmd;
 	// int moves;

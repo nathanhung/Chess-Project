@@ -1,6 +1,6 @@
 #ifndef CHESSPIECE_H
 #define CHESSPIECE_H
-#include "../game.h"
+class Game;
 
 class ChessPiece {
 	char owner;

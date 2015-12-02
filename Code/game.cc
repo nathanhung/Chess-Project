@@ -1,4 +1,5 @@
 #include "game.h"
+#include "controller.h"
 
 Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn){
 
@@ -175,4 +176,8 @@ bool Game::checkBoard(){
 	}
 	// if all tests pass, return true
 	return true;
+}
+
+void notifierNotify(int row, int col, char piece){
+	controller->viewNotify(row, col, piece);
 }

@@ -14,17 +14,17 @@ string CPU::getMove(){
 	// level 3 is saving pieces > capturing > checks > random
 	// level 4 is something more elaborate > saving pieces > capturing > checks > random
 	assert(pieces && numPieces);
-
-	if(level == 4){ break; }
-	else if(level >= 3){ break; }
-	else if(level >= 2){ break;	}
+	string move = "a0";
+	if(level == 4){ return move; }
+	else if(level >= 3){ return move; }
+	else if(level >= 2){ return move; }
 	// level 1
 	srand (time(NULL));
 
 	int newRow = rand() % 8;
 	int newCol = rand() % 8;
 	
-	while(){
+	while(true){
 		for(int i = 0; i < numPieces; i++){
 			assert(pieces[i] && pieces[i]->getPiece());
 			ChessPiece* piece = pieces[i]->getPiece();

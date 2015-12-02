@@ -2,6 +2,7 @@
 #define VIEW_H
 
 class View {
+protected:
 	const int GRIDSIZE;
 public:
 	//virtual void notify() = 0; // what does this do?
