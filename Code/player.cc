@@ -38,3 +38,7 @@ void Player::removePiece(Tile* tile){
 	}
 	numPieces--;
 }
+
+int Player::getNumPieces(){
+	return numPieces;
+}

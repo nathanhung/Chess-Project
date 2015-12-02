@@ -110,6 +110,10 @@ char Game::getTurn(){
 	return turn;
 }
 
+void Game::setTurn(char turn){
+	turn = turn;
+}
+
 Player* Game::getPlayer(int n){
 	assert(players);
 	return players[n];
@@ -134,4 +138,41 @@ void Game::swapTiles(Tile* currentTile, Tile* newTile){
 
 Tile* Game::getTile(int row, int col){
 	return theGrid[row][column];
+}
+
+bool Game::checkBoard(){
+	Player* p1 = getPlayer(0);
+	Player* p2 = getPlayer(1);
+	int pieces1 = p1.getNumPieces();
+	int pieces2 = p2.getNumPieces();
+
+	// more than 1 king
+	int wKings = 0;
+	int bKings = 0;
+	for(int i = 0; i < pieces1; i++){
+		if(p1.getPiece(i)->getPiece()->getType() == 'K'){
+			wKings++;
+		}
+	}
+	for(int i = 0; i < pieces2; i++){
+		if(p2.getPiece(i)->getPiece()->getType() == 'k'){
+			bKings++;
+		}
+	}
+	if(wKings > 1 || bKings > 1){
+		return false;
+	}
+	// pawns in unplaceable spots
+	for(int i = 0; i < 8; i++){
+		// check first row for 'p'
+		if(game->getTile(0, i)->getPiece() == 'p'){
+			return false;
+		}
+		// check seventh row for 'P'
+		if(game->getTile(7, i)->getPiece() == 'P'){
+			return false;
+		}
+	}
+	// if all tests pass, return true
+	return true;
 }

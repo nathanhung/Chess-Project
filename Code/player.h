@@ -24,6 +24,7 @@ public:
 	void setKing1(Tile* king);
 	void setKing2(Tile* king);
 	void promotePawn(char pieceType);
+	int getNumPieces();
 };
 
 #endif

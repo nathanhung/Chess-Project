@@ -1,0 +1,15 @@
+CXX = g++
+CXXFLAGS = -Wall -MMD -g
+EXEC = chessText
+OBJECTS = main.o tile.o CPU.o controller.o textdisplay.o view.o bishop.o chesspiece.o king.o knight.o pawn.o queen.o rook.o
+DEPENDS = ${OBJECTS:.o=.d}
+
+${EXEC}: ${OBJECTS}
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+
+-include ${DEPENDS}
+
+.PHONY: clean
+
+clean:
+	rm ${OBJECTS} ${EXEC} ${DEPENDS}

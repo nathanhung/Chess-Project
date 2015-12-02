@@ -19,10 +19,12 @@ public:
 	void tileNotify(int curRow, char curCol, int newRow, char newCol);
 	void notifierNotify(int row, int col, char piece);
 	char getTurn();
+	void setTurn(char turn);
 	Tile* getTile(int row, int col);
 	void setTile(int row, int col, Tile* tile);
 	Player* getPlayer(int n);
 	void promotePawn(int row, int col, char pieceType);
 	void swapTiles(Tile* currentTile, Tile* newTile);
+	bool checkBoard();
 };
 #endif

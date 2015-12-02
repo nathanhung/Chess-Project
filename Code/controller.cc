@@ -7,6 +7,12 @@
 #include "CPU.h"
 #include <string>
 #include <cstdlib>
+#include "pieces/rook.h"
+#include "pieces/king.h"
+#include "pieces/bishop.h"
+#include "pieces/queen.h"
+#include "pieces/pawn.h"
+#include "pieces/knight.h"
 using namespace std;
 
 Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0){
@@ -139,7 +145,7 @@ void Controller::playGame(){
 			makeGame("human", "human");
 			cin >> cmd;
 
-			while(cmd != "done"){
+			while(cmd != "done" && !game->checkBoard()){
 				char op = cmd.at(0);
 				// start accepting input
 				// + - =
@@ -148,19 +154,59 @@ void Controller::playGame(){
 					string location;
 					cin >> piece >> location;
 
-					ChessPiece* cp = new ChessPiece(piece);
+					// get Tile at location
 					int curRow = toIndex(location.at(1));
 					int curCol = toIndex(location.at(0));
+					Tile* currentTile = game->getTile(curRow, curCol);
+
+					char owner = (piece >= 'a' && piece <= 'z')? 'B': 'W';
+					ChessPiece* cp;
+					// Pawn
+					if(piece == 'p' || piece + 32 == 'p'){
+						cp = new Pawn(owner, piece, game);
+					}
+					// Bishop
+					else if(piece == 'b' || piece + 32 == 'b'){
+						cp = new Bishop(owner, piece, game);
+					}
+					// Rook
+					else if(piece == 'r' || piece + 32 == 'r'){
+						cp = new Rook(owner, piece, game);
+					}
+					// Queen
+					else if(piece == 'q' || piece + 32 == 'q'){
+						cp = new Queen(owner, piece, game);
+					}
+					// King
+					else if(piece == 'k' || piece + 32 == 'k'){
+						cp = new King(owner, piece, game);
+						if(owner == 'W'){
+							game->getPlayer(0)->setKing1(currentTile);
+							game->getPlayer(1)->setKing1(currentTile);
+						}
+						else{
+							game->getPlayer(0)->setKing2(currentTile);
+							game->getPlayer(1)->setKing2(currentTile);
+						}
+					}
+					// Knight
+					else if(piece == 'n' || piece + 32 == 'n'){
+						cp = new Knight(owner, piece, game);
+					}
+					// else ERROR
+					else{
+						cout << "INVALID PIECE TYPE IN SETUP MODE!" << endl;
+					}
+					
 
 					// set piece at location
-					Tile* currentTile = game->getTile[curRow][curCol];
-					currentTile->getPiece() = cp;
+					currentTile->setPiece(cp);
 
 					if(piece >= 'A' && piece <= 'Z'){
-						game->getPlayer(0)->pieces[numPieces] = cp;
+						game->getPlayer(0)->addPiece(currentTile);
 					}
 					else{
-						game->getPlayer(1)->addPiece(cp);
+						game->getPlayer(1)->addPiece(currentTile);
 					}
 					// notify view of the change
 					viewNotify(curRow, curCol, piece);
@@ -172,7 +218,7 @@ void Controller::playGame(){
 					int curRow = toIndex(location.at(1));
 					int curCol = toIndex(location.at(0));
 
-					Tile* currentTile = game->getTile[curRow][curCol];
+					Tile* currentTile = game->getTile(curRow, curCol);
 					if(currentTile->getPiece()){
 						delete currentTile->getPiece();
 						currentTile = NULL;
@@ -188,15 +234,16 @@ void Controller::playGame(){
 					string colour;
 					cin >> colour;
 					if(colour == "white"){
-						game->getTurn() = 'W';
+						game->setTurn('W');
 					}
 					else{
-						game->getTurn() = 'B';
+						game->setTurn('B');
 					}
 				}
 				else{
 					cout << "Invalid move!" << endl;
 				}
+				td->print();
 			}
 		}
 		td->print();

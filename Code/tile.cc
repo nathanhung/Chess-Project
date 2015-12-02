@@ -5,7 +5,7 @@ using namespace std;
 Tile::Tile(): game(NULL), piece(NULL){}
 
 Tile::~Tile(){
-	delete ChessPiece;
+	delete piece;
 	delete this;
 }
 
