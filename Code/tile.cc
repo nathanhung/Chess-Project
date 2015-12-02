@@ -11,7 +11,7 @@ Tile::~Tile(){
 
 void Tile::notify (int row1, int col1, int row2, int col2) {
 	if(piece) {
-		game->notifierNotify(row2, col2, piece->type);
+		game->notifierNotify(row2, col2, piece->getType());
 	} 
 	else {
 		char c = ((row2 + col2) % 2)? ' ' : '-';
@@ -26,7 +26,7 @@ void Tile::setCoords(int row, int col) {
 
 bool Tile::checkValid(int newRow, int newCol) {
 	if (piece != NULL) {
-		return piece->checkMove(row, col, newRow, newCol); // checks if move is valid
+		return piece->checkMove(row, column, newRow, newCol); // checks if move is valid
 	} else {
 		return false;
 	}
