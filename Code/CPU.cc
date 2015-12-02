@@ -2,6 +2,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <assert.h>
+#include "pieces/chesspiece.h"
 using namespace std;
 
 CPU::CPU(int level): level(level){}

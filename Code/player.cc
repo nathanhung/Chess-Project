@@ -1,5 +1,6 @@
 #include "player.h"
 #include "tile.h"
+#include "pieces/chesspiece.h"
 
 Player::Player(): theGrid(NULL), numPieces(0), pieces(NULL), king1(NULL), king2(NULL){}
 

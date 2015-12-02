@@ -1,6 +1,7 @@
 #include "bishop.h"
+#include "../game.h"
 
-Bishop::Bishop(string owner, string type, Game *game): ChessPiece(owner, type, game) {}
+Bishop::Bishop(char owner, char type, Game *game): ChessPiece(owner, type, game) {}
 
 Bishop::~Bishop() {}
 
@@ -27,15 +28,15 @@ bool Bishop::checkMove(int curRow, int curCol, int newRow, int newCol) {
 			if (game->getTile(i, j)->getPiece()) return false;
 		} 
 	} else if (curRow < newRow && curCol > newCol) {
-		for (; i < newRow, j > newCol; i++, j--) {
+		for (; i < newRow && j > newCol; i++, j--) {
 			if (game->getTile(i, j)->getPiece()) return false;
 		}
 	} else if (curRow > newRow && curCol < newCol) {
-		for (; i > newRow, j < newCol; i--, j++) {
+		for (; i > newRow && j < newCol; i--, j++) {
                         if (game->getTile(i, j)->getPiece()) return false;
                 }
 	} else if (curRow > newRow && curCol > newCol) {
-		for (; i > newRow, j > newCol; i--, j--) {
+		for (; i > newRow && j > newCol; i--, j--) {
                         if (game->getTile(i, j)->getPiece()) return false;
                 }
 	}

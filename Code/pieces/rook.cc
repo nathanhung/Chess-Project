@@ -1,12 +1,13 @@
 #include "rook.h"
+#include "../game.h"
 
 Rook::Rook(char owner, char type, Game* game): ChessPiece(owner, type, game) {}
 
 Rook::~Rook() {}
 
 bool Rook::checkMove (int curRow, int curCol, int newRow, int newCol) {
-	if (newRow !<= 7 || newRow !>= 0) return false;
-        if (newCol !<= 7 || newCol !>= 0) return false; // check if new position is out of board
+	if (newRow > 7 || newRow < 0) return false;
+        if (newCol > 7 || newCol < 0) return false; // check if new position is out of board
 	if (curRow == newRow && curCol == newCol) return false; 	
 
 	// check if piece is reachable from current position
