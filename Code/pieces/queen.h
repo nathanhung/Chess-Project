@@ -2,7 +2,7 @@
 #define QUEEN_H
 
 #include "chesspiece.h"
-
+class Game;
 class Queen: public ChessPiece {
 public:
 	Queen(char owner, char type, Game* game);

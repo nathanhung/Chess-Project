@@ -2,7 +2,7 @@
 #define BISHOP_H
 
 #include "chesspiece.h"
-
+class Game;
 class Bishop: public ChessPiece {
 public:
 	Bishop(char owner, char type, Game* game);

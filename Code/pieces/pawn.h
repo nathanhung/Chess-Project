@@ -1,8 +1,8 @@
 #ifndef PAWN_H
 #define PAWN_H
-
 #include "chesspiece.h"
 
+class Game;
 class Pawn: public ChessPiece {
 public:
 	Pawn(char owner, char type, Game* game);

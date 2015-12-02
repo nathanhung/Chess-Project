@@ -2,7 +2,7 @@
 #define KNIGHT_H
 
 #include "chesspiece.h"
-
+class Game;
 class Knight: public ChessPiece {
 public:
 	Knight(char owner, char type, Game* game);

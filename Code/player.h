@@ -1,7 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <string>
-#include "tile.h"
 using namespace std;
 
 class ChessPiece;

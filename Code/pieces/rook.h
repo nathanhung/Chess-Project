@@ -2,7 +2,7 @@
 #define ROOK_H
 
 #include "chesspiece.h"
-
+class Game;
 class Rook: public ChessPiece {
 public:
 	Rook(char owner, char type, Game* game); 

@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <assert.h>
 #include "pieces/chesspiece.h"
+#include "tile.h"
 using namespace std;
 
 CPU::CPU(int level): level(level){}

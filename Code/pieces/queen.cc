@@ -5,10 +5,10 @@ Queen::Queen(char owner, char type, Game* game): ChessPiece(owner, type, game) {
 
 Queen::~Queen() {}
 
-Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
+bool Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	// check if new position is out of board
-	if (newRow > 7 || newRow < 0) return false;
-        if (newCol > 7 || newCol < 0) return false;
+	if(newRow > 7 || newRow < 0){return false;}
+    if(newCol > 7 || newCol < 0){return false;}
 
 	int reached = 0;
 	int reachByHor = 0;
@@ -22,26 +22,28 @@ Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
 
 	// check possible diagonal moves
         for (int i = 1; i <= 7; i++) {
-                if (curRow - i == newRow && curCol + i == newCol) {
-			reached = 1;
-			reachByDiag = 1;
+            if (curRow - i == newRow && curCol + i == newCol) {
+    			reached = 1;
+    			reachByDiag = 1;
 		}
-                if (curRow + i == newRow && curCol + i == newCol) {
-			reached = 1;
-			reachByDiag = 1;
+            if (curRow + i == newRow && curCol + i == newCol) {
+    			reached = 1;
+    			reachByDiag = 1;
 		}
-                if (curRow + i == newRow && curCol - i == newCol) {
-			reached = 1;
-			reachByDiag = 1;
+            if (curRow + i == newRow && curCol - i == newCol) {
+    			reached = 1;
+    			reachByDiag = 1;
 		}
-                if (curRow - i == newRow && curCol - i == newCol) {
-			reached = 1;
-			reachByDiag = 1;
+            if (curRow - i == newRow && curCol - i == newCol) {
+    			reached = 1;
+    			reachByDiag = 1;
         }
-        if (reached = 0) return false;
+        //} or here?
+            if (reached == 0) return false;
+        } // does the brace go here -- I put it here for now?
 	
 	// check if a piece is in the way from current to new position
-	if (reachByHor = 1) {
+	if (reachByHor == 1) {
 		if (curRow == newRow) {
                 	if (curCol < newCol) {
                         	for (int i = curCol; i < newCol; i++) {
@@ -65,7 +67,7 @@ Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
                 	}
         	}		
 	}
-	if (reachByDiag = 1) {
+	if (reachByDiag == 1) {
 		int i = curRow;
     		int j = curCol;
         	// check if pieces are in the way
@@ -74,15 +76,15 @@ Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow < newRow && curCol > newCol) {
-                	for (; i < newRow, j > newCol; i++, j--) {
+                	for (; i < newRow && j > newCol; i++, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol < newCol) {
-                	for (; i > newRow, j < newCol; i--, j++) {
+                	for (; i > newRow && j < newCol; i--, j++) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol > newCol) {
-                	for (; i > newRow, j > newCol; i--, j--) {
+                	for (; i > newRow && j > newCol; i--, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	}
