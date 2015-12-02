@@ -1,13 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
 #include <string>
+#include "tile.h"
 using namespace std;
 
 class ChessPiece;
-class Tile;
-
 class Player {
+protected:
 	Tile** theGrid;
 	Tile* pieces[16];
 	int numPieces;

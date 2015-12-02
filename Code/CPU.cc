@@ -1,7 +1,7 @@
 #include "CPU.h"
 #include <ctime>
 #include <cstdlib>
-
+#include <assert.h>
 using namespace std;
 
 CPU::CPU(int level): level(level){}
@@ -15,11 +15,9 @@ string CPU::getMove(){
 	// level 4 is something more elaborate > saving pieces > capturing > checks > random
 	assert(pieces && numPieces);
 
-	if(level == 4){}
-	else if(level >= 3){}
-	else if(level >= 2){
-
-	}
+	if(level == 4){ break; }
+	else if(level >= 3){ break; }
+	else if(level >= 2){ break;	}
 	// level 1
 	srand (time(NULL));
 
@@ -32,11 +30,13 @@ string CPU::getMove(){
 			ChessPiece* piece = pieces[i]->getPiece();
 			int curRow = pieces[i]->getRow();
 			int curCol = pieces[i]->getColumn();
-
+			string move = "a0";
 			if(piece->checkMove(curRow,curCol, newRow, newCol)){
-				// return move
+				// TODO
+				return move;
 			}
 		}
+		// TODO
 		return move;
 	}
 	
