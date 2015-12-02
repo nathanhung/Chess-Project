@@ -73,15 +73,15 @@ Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow < newRow && curCol > newCol) {
-                	for (; i < newRow, j > newCol; i++, j--) {
+                	for (; i < newRow && j > newCol; i++, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol < newCol) {
-                	for (; i > newRow, j < newCol; i--, j++) {
+                	for (; i > newRow && j < newCol; i--, j++) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol > newCol) {
-                	for (; i > newRow, j > newCol; i--, j--) {
+                	for (; i > newRow && j > newCol; i--, j--) {
                         	if (game->getTile(i, j)->getPiece()) return false;
                 	}
         	}
