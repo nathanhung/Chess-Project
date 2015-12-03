@@ -73,6 +73,7 @@ void Controller::playGame(){
 			// REMEMBER THE NUMBERS ARE INVERTED
 			string spot1, spot2;
 			char pieceType;
+
 			cin >> spot1 >> spot2;
 
 			int curRow = toIndex(spot1.at(1) - '0');
@@ -117,7 +118,7 @@ void Controller::playGame(){
 			if(game->getTurn() == 'W'){
 				assert(game->getPlayer(0) && game->getPlayer(1));
 				if(!game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){
-					cout << "Invalid Move. 1" << endl;
+					cout << "Invalid Move for  P1" << endl;
 					td->update(game->getGrid());
 					td->print();
 					continue;
@@ -137,7 +138,7 @@ void Controller::playGame(){
 			}
 			else {
 				if(!game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol)){
-					cout << "Invalid Move. 2 " << endl;
+					cout << "Invalid Move for P2 " << endl;
 					td->update(game->getGrid());
 					td->print();
 					continue; 

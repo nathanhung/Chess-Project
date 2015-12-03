@@ -3,6 +3,7 @@
 #include "pieces/chesspiece.h"
 #include <cstdlib>
 #include "game.h"
+#include <cassert>
 #include <iostream>
 using namespace std;
 
@@ -54,6 +55,9 @@ int Player::getNumPieces(){
 }
 // checks if move is possible based on current position and desired position
 bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
+
+	assert(newRow > -1 && newRow <= 7);
+	assert(newCol > -1 && newCol <= 7);
 	// find the tile at cur
 	Tile* currentTile = game->getTile(curRow, curCol);
 	Tile* newTile = game->getTile(newRow, newCol);

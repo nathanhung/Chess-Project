@@ -86,12 +86,12 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    			theGrid[i][j].setPiece(new Bishop('W', 'B', this));
 	    		}
 	    		else if(j == 3){
+	    			theGrid[i][j].setPiece(new Queen('W', 'Q', this));
+	    		}
+	    		else{
 	    			theGrid[i][j].setPiece(new King('W', 'K', this));
 	    			players[0]->setKing1(&theGrid[i][j]);
 	    			players[1]->setKing2(&theGrid[i][j]);
-	    		}
-	    		else{
-	    			theGrid[i][j].setPiece(new Queen('W', 'Q', this));
 	    		}
 	    		players[0]->addPiece(&theGrid[i][j]);
 	    	}
