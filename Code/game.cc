@@ -179,3 +179,7 @@ bool Game::checkBoard(){
 void Game::notifierNotify(int row, int col, char piece){
 	controller.viewNotify(row, col, piece);
 }
+
+bool Game::getEnPassant(){
+	return enPassant;
+}

@@ -37,7 +37,7 @@ bool Pawn::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	if (this->owner == 'W') {
 		if ((curRow - 1 == newRow && curCol - 1 == newCol) || (curRow - 1 == newRow && curCol + 1 == newCol)) {
 			if (!(game->getTile(newRow, newCol)->getPiece())) { // if new spot is empty
-				if (game->enPassant == false) return false;
+				if (game->getEnPassant() == false) return false;
 				if (!(game->getTile(curRow, newCol)->getPiece())) return false;
 				pieceType = game->getTile(curRow, newCol)->getPiece()->getType();
 				if (pieceType >= 'A' && pieceType <= 'Z') return false; // cannot enPassant own piece
@@ -46,7 +46,7 @@ bool Pawn::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	} else {
 		if ((curRow + 1 == newRow && curCol - 1 == newCol) || (curRow + 1 == newRow && curCol + 1 == newCol)) {
                         if (!(game->getTile(newRow, newCol)->getPiece())) { // if new spot is empty
-                                if (game->enPassant == false) return false;
+                                if (game->getEnPassant() == false) return false;
                                 if (!(game->getTile(curRow, newCol)->getPiece())) return false;
 				pieceType = game->getTile(curRow, newCol)->getPiece()->getType();
 				if (pieceType >= 'a' && pieceType <= 'z') return false;				

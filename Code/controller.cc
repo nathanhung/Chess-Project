@@ -146,10 +146,11 @@ void Controller::playGame(){
 				}
 			}
 			cout << "Line 150 " << endl;
-			// must change coords and notify view here
-			currentTile->setCoords(newRow, newCol);
-			newTile->setCoords(curRow, curCol);
-			
+
+
+			cout << "New coords: " << newRow << newCol << endl;
+			cout << "Current coords: " << curRow << curCol << endl;
+
 			if(currentTile->getPiece()){ // put piece in CURRENT spot at NEW SPOT
 				viewNotify(newRow, newCol, currentTile->getPiece()->getType());
 			}

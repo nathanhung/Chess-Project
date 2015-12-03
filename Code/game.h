@@ -27,5 +27,6 @@ public:
 	void promotePawn(int row, int col, char pieceType);
 	void swapTiles(Tile* currentTile, Tile* newTile);
 	bool checkBoard();
+	bool getEnPassant();
 };
 #endif
