@@ -15,94 +15,90 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	// player1
 	// if human
 	if (p1 == "human"){
-		players[0] = new Human(0);
+		players[0] = new Human(0, this);
 	} 
 	// otherwise its a CPU
 	else {
 		int level = p1.at(8) - '0';
-		players[0] = new CPU(0, level);
+		players[0] = new CPU(0, level, this);
 	}
 
 	// player2
 	// if human
 	if (p2 == "human"){
-		players[1] = new Human(1);
+		players[1] = new Human(1, this);
 	} 
 	// otherwise its a CPU
 	else { // we have computer1
 		int level = p2.at(8) - '0';
-		players[1] = new CPU(1, level);
+		players[1] = new CPU(1, level, this);
 	}
-  	players[0]->setGame(this);
-  	players[1]->setGame(this);
-
 
 	// setup theGrid
-	Tile** arr = new Tile* [GRIDSIZE];
+	theGrid = new Tile* [GRIDSIZE];
   	for(int i = 0; i < GRIDSIZE; ++i){
-	    arr[i] = new Tile[GRIDSIZE];
+	    theGrid[i] = new Tile[GRIDSIZE];
 	    // setup the row indices
 	    for(int j = 0; j < GRIDSIZE; j++){
 	    	// do first row
 	    	if(i == 0){
 	    		if(j == 0 || j == 7){
-	    			arr[i][j].setPiece(new Rook('B','r', this));
+	    			theGrid[i][j].setPiece(new Rook('B','r', this));
 	    		}
 	    		else if(j == 1 || j == 6){
-	    			arr[i][j].setPiece(new Knight('B','n', this));
+	    			theGrid[i][j].setPiece(new Knight('B','n', this));
 	    		}
 	    		else if(j == 2 || j == 5){
-	    			arr[i][j].setPiece(new Bishop('B','b', this));
+	    			theGrid[i][j].setPiece(new Bishop('B','b', this));
 	    		}
 	    		else if(j == 3){
-	    			arr[i][j].setPiece(new Queen('B','q', this));
+	    			theGrid[i][j].setPiece(new Queen('B','q', this));
 	    		}
 	    		else{
-	    			arr[i][j].setPiece(new King('B','k', this));
-	    			players[0]->setKing1(&arr[i][j]);
-	    			players[1]->setKing2(&arr[i][j]);
+	    			theGrid[i][j].setPiece(new King('B','k', this));
+	    			players[0]->setKing1(&theGrid[i][j]);
+	    			players[1]->setKing2(&theGrid[i][j]);
 	    		}
-	    		players[1]->addPiece(&arr[i][j]);
+	    		players[1]->addPiece(&theGrid[i][j]);
 	    	}
 
 	    	// do second row
 	    	else if(i == 1){
-	    		arr[i][j].setPiece(new Pawn('B','p', this));
-	    		players[1]->addPiece(&arr[i][j]);
+	    		theGrid[i][j].setPiece(new Pawn('B','p', this));
+	    		players[1]->addPiece(&theGrid[i][j]);
 	    	}
 
 	    	// seventh row
 	    	else if(i == 6){
-	    		arr[i][j].setPiece(new Pawn('W','P', this));
-	    		players[0]->addPiece(&arr[i][j]);
+	    		theGrid[i][j].setPiece(new Pawn('W','P', this));
+	    		players[0]->addPiece(&theGrid[i][j]);
 	    	}
 
 	    	// eigth row	
 	    	else if(i == 7){
 	    		if(j == 0 || j == 7){
-	    			arr[i][j].setPiece(new Rook('W', 'R', this));
+	    			theGrid[i][j].setPiece(new Rook('W', 'R', this));
 	    		}
 	    		else if(j == 1 || j == 6){
-	    			arr[i][j].setPiece(new Knight('W', 'N', this));
+	    			theGrid[i][j].setPiece(new Knight('W', 'N', this));
 	    		}
 	    		else if(j == 2 || j == 5){
-	    			arr[i][j].setPiece(new Bishop('W', 'B', this));
+	    			theGrid[i][j].setPiece(new Bishop('W', 'B', this));
 	    		}
 	    		else if(j == 3){
-	    			arr[i][j].setPiece(new King('W', 'K', this));
-	    			players[0]->setKing1(&arr[i][j]);
-	    			players[1]->setKing2(&arr[i][j]);
+	    			theGrid[i][j].setPiece(new King('W', 'K', this));
+	    			players[0]->setKing1(&theGrid[i][j]);
+	    			players[1]->setKing2(&theGrid[i][j]);
 	    		}
 	    		else{
-	    			arr[i][j].setPiece(new Queen('W', 'Q', this));
+	    			theGrid[i][j].setPiece(new Queen('W', 'Q', this));
 	    		}
-	    		players[0]->addPiece(&arr[i][j]);
+	    		players[0]->addPiece(&theGrid[i][j]);
 	    	}
-	    	arr[i][j].setGame(this);
-	    	arr[i][j].setCoords(i, j);
+	    	theGrid[i][j].setGame(this);
+	    	theGrid[i][j].setCoords(i, j);
     	}
-  }
-  theGrid = arr;  	
+  } 	
 }
 
 Game::~Game(){
@@ -134,15 +130,9 @@ void Game::promotePawn(int row, int col, char pieceType){
 }
 
 void Game::swapTiles(Tile* currentTile, Tile* newTile){
-	int curRow = currentTile->getRow();
-	int curCol = currentTile->getColumn();
-
-	int newRow = newTile->getRow();
-	int newCol = newTile->getColumn();
-	
 	Tile* temp = currentTile;
-	theGrid[curRow][curCol] = *newTile;
-	theGrid[newRow][newCol] = *temp;
+	currentTile = newTile;
+	newTile = temp;
 }
 
 Tile* Game::getTile(int row, int col){

@@ -15,7 +15,7 @@ protected:
 	Tile* king1,* king2;
 	
 public:
-	Player(int number);
+	Player(int number, Game* game);
 	virtual ~Player() = 0;
 	bool checkValid (int curRow, int curCol, int newRow, int newCol);
 	void setGame(Game* game);

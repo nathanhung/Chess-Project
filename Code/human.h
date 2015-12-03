@@ -4,7 +4,7 @@
 
 class Human: public Player{
 public:
-	Human(int number);
+	Human(int number, Game* game);
 	virtual ~Human();
 };
 

@@ -13,10 +13,12 @@
 #include "pieces/queen.h"
 #include "pieces/pawn.h"
 #include "pieces/knight.h"
+#include <cassert>
 using namespace std;
 
 Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0){
 	td = new TextDisplay(8);
+	assert(td);
 	//gd = new GraphicDisplay():
 }
 
@@ -27,10 +29,12 @@ Controller::~Controller(){
 }
 
 int Controller::toIndex(char c){
+	assert(c >= 'a');
 	return  c - 'a';
 }
 // assumes we have an integer (do - '0')
 int Controller::toIndex(int n){
+	assert(n >= 1);
 	return  8 - n;
 }
 
@@ -76,11 +80,21 @@ void Controller::playGame(){
 			int curCol = toIndex(spot1.at(0));
 			int newCol = toIndex(spot2.at(0));
 
+			assert(curRow >= 0 && curRow <= 7);
+			assert(curCol >= 0 && curCol <= 7);
+			assert(newRow >= 0 && newRow <= 7);
+			assert(newCol >= 0 && newCol <= 7);
+
 			// remember to check for pawn promotion
 			// first check if its a pawn then see if spot2 is the edge of the board
 			// through game->getTile 
 			Tile* currentTile = game->getTile(curRow, curCol);
 			Tile* newTile = game->getTile(newRow, newCol);
+
+			assert(currentTile);
+			assert(newTile);
+
+			// pawn promotion checks
 			if(currentTile->getPiece()){ //if there is a chessPiece at the first coord
 				// check to see if its a pawn
 				if(currentTile->getPiece()->getType() == 'p' && newRow == 7){
@@ -98,15 +112,17 @@ void Controller::playGame(){
 					// must notify view
 				}
 			}
+			assert(game->getTurn());
 			// otherwise just move piece if possible
-			if(turn == 'W'){
+			if(game->getTurn() == 'W'){
+				assert(game->getPlayer(0) && game->getPlayer(1));
 				if(!game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){
-					cout << "Invalid Move." << endl; 
-					continue;
+					cout << "Invalid Move. 1" << endl;
 				}
-
-				// valid move, check for capture
+				// valid move, check for capture, if not capturing, just moving piece to empty tile
 				if(newTile->getPiece()){
+					assert(newTile->getPiece()->getType());
+
 					char type = newTile->getPiece()->getType();
 					if(type >= 'a' && type <= 'z'){ // piece is black, we are white
 						// delete it and replace all pointers to NULL
@@ -117,10 +133,9 @@ void Controller::playGame(){
 			}
 			else {
 				if(!game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol)){
-					cout << "Invalid Move." << endl; 
-					continue;
+					cout << "Invalid Move. 2 " << endl; 
 				}
-				// valid move, check for capture
+				// valid move, check for capture, if not capturing, just moving piece to empty tile
 				if(newTile->getPiece()){
 					char type = newTile->getPiece()->getType();
 					if(type >= 'A' && type <= 'Z'){ // piece is white, we are black
@@ -130,18 +145,27 @@ void Controller::playGame(){
 					}
 				}
 			}
+			cout << "Line 150 " << endl;
 			// must change coords and notify view here
-			game->getTile(curRow, curCol)->setCoords(newRow, newCol);
-			game->getTile(newRow, newCol)->setCoords(curRow, curCol);
-			game->swapTiles(currentTile, newTile);
-			if(currentTile->getPiece()){
-				
+			currentTile->setCoords(newRow, newCol);
+			newTile->setCoords(curRow, curCol);
+			
+			if(currentTile->getPiece()){ // put piece in CURRENT spot at NEW SPOT
+				viewNotify(newRow, newCol, currentTile->getPiece()->getType());
+			}
+			else{
+				char c = ((newRow + newCol) % 2)? '-': ' ';
+				viewNotify(newRow, newCol, c);
 			}
 			if(newTile->getPiece()){
-
+				viewNotify(curRow, curCol, newTile->getPiece()->getType());
 			}
-			viewNotify(newRow, newCol, newTile->getPiece()->getType());
-			viewNotify(curRow, curCol, currentTile->getPiece()->getType());
+			else{
+				char c = ((curRow + curCol) % 2)? '-': ' ';
+				viewNotify(curRow, curCol, c);
+			}
+			game->setTurn((game->getTurn() == 'W')? 'B':'W');
+			game->swapTiles(currentTile, newTile);
 		}
 		// setup
 		else if(cmd == "setup"){
