@@ -95,6 +95,47 @@ void Controller::playGame(){
 			assert(currentTile);
 			assert(newTile);
 
+			// en passant checks
+			if(currentTile->getPiece()){ //if there is a chessPiece at the first coord
+				// check to see if its a pawn
+				if(currentTile->getPiece()->getType() == 'p' && game->getEnPassant()){ 
+					// BLACK pawn moves downwards, bot left or bot right
+					// curRow < newRow BUT col could be less or greater
+					if(curCol != newCol && game->getTile(newRow-1, newCol)->getPiece()->getType() == 'P'){ 
+					// means pawn is moving diagonally
+					// en passant used by BLACK
+						game->setPiece(newRow, newCol, currentTile->getPiece());
+						game->setPiece(curRow, curCol, NULL);
+						delete game->getTile(newRow - 1, newCol)->getPiece();
+						game->setPiece(newRow - 1, newCol, NULL);
+						game->setEnPassant(false);
+
+						td->update(game->getGrid());
+						td->print();
+						game->nextTurn();
+						continue;// same as below
+					}
+				}
+				else if(currentTile->getPiece()->getType() == 'P' && game->getEnPassant()){ 
+					// White pawn moves upwards, top left or top right
+					// curRow > newRow BUT col could be less or greater
+					if(curCol != newCol && game->getTile(newRow + 1, newCol)->getPiece()->getType() == 'p'){ 
+					// means pawn is moving diagonally
+					// en passant used by BLACK
+						game->setPiece(newRow, newCol, currentTile->getPiece());
+						game->setPiece(curRow, curCol, NULL);
+						delete game->getTile(newRow + 1, newCol)->getPiece();
+						game->setPiece(newRow + 1, newCol, NULL);
+						game->setEnPassant(false);
+
+						td->update(game->getGrid());
+						td->print();
+						game->nextTurn();
+						continue;// same as below
+					}
+				}
+			}
+
 			// pawn promotion checks
 			if(currentTile->getPiece()){ //if there is a chessPiece at the first coord
 				// check to see if its a pawn
@@ -105,6 +146,7 @@ void Controller::playGame(){
 
 					td->update(game->getGrid());
 					td->print();
+					game->nextTurn();
 					continue;// same as below
 				}
 				else if(currentTile->getPiece()->getType() == 'P' && newRow == 0){
@@ -114,16 +156,22 @@ void Controller::playGame(){
 
 					td->update(game->getGrid());
 					td->print();
+					game->nextTurn();
 					continue;// same as below
 				}
 			}
 			assert(game->getTurn());
+			// Must set it to false HERE
+			// this means no one has capitilized on the enPassant and 
+			// it is now available to be set to true again
+			game->setEnPassant(false);
 			// otherwise just move piece if possible
 			if(game->getTurn() == 'W'){
 				if(!game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){
 					cout << "Invalid Move for  P1" << endl;
 					td->update(game->getGrid());
 					td->print();
+					game->nextTurn();
 					continue;
 				}
 				// valid move, check for capture, if not capturing, just moving piece to empty tile
@@ -142,6 +190,7 @@ void Controller::playGame(){
 					cout << "Invalid Move for P2" << endl;
 					td->update(game->getGrid());
 					td->print();
+					game->nextTurn();
 					continue; 
 				}
 				// valid move, check for capture, if not capturing, just moving piece to empty tile
@@ -175,10 +224,7 @@ void Controller::playGame(){
 				char c = ((newRow + newCol) % 2)? '-': ' ';
 				viewNotify(newRow, newCol, c);
 			}
-			game->setTurn((game->getTurn() == 'W')? 'B':'W');
-
-
-
+			game->nextTurn();
 		}
 		// setup
 		else if(cmd == "setup"){

@@ -234,3 +234,8 @@ bool Game::check(int index){ //index 0 = W, 1 = B
 
 	return false;
 }
+
+void Game::nextTurn(){
+	
+	turn = (turn == 'W')? 'B':'W';
+}

@@ -31,7 +31,8 @@ public:
 	void setEnPassant(bool value);
 	void setPiece(int row, int col, ChessPiece* piece);
 	bool check(int index);
-
+	void nextTurn();
+	
 	// for testing
 	Tile** getGrid();
 };
