@@ -22,11 +22,15 @@ public:
 	char getTurn();
 	void setTurn(char turn);
 	Tile* getTile(int row, int col);
-	void setTile(int row, int col, Tile* tile);
+	void setTile(int row, int col, Tile& tile);
 	Player* getPlayer(int n);
 	void promotePawn(int row, int col, char pieceType);
 	void swapTiles(Tile* currentTile, Tile* newTile);
 	bool checkBoard();
 	bool getEnPassant();
+	void setPiece(int row, int col, ChessPiece* piece);
+
+	// for testing
+	Tile** getGrid();
 };
 #endif

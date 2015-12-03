@@ -130,13 +130,15 @@ void Game::promotePawn(int row, int col, char pieceType){
 }
 
 void Game::swapTiles(Tile* currentTile, Tile* newTile){
-	Tile* temp = currentTile;
-	currentTile = newTile;
-	newTile = temp;
+	
 }
 
 Tile* Game::getTile(int row, int col){
 	return &theGrid[row][col];
+}
+
+void Game::setPiece(int row, int col, ChessPiece* piece){
+	getTile(row, col)->setPiece(piece);
 }
 
 bool Game::checkBoard(){
@@ -182,4 +184,8 @@ void Game::notifierNotify(int row, int col, char piece){
 
 bool Game::getEnPassant(){
 	return enPassant;
+}
+
+Tile** Game::getGrid(){
+	return theGrid;
 }

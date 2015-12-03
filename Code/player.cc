@@ -3,6 +3,8 @@
 #include "pieces/chesspiece.h"
 #include <cstdlib>
 #include "game.h"
+#include <iostream>
+using namespace std;
 
 Player::Player(int number, Game* game): game(game), numPieces(0), king1(NULL), king2(NULL), playerNumber(number){
 	for(int i = 0; i < 16; i++){
@@ -62,15 +64,25 @@ bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
 	char pieceType;
 	if(newTile->getPiece()){
 		pieceType = newTile->getPiece()->getType();
+
+		// check for player's own pieces at new spot
+		if(playerNumber == 0 && (pieceType >= 'A' && pieceType <= 'Z')) {
+			return false;
+		}
+		if(playerNumber == 1 && (pieceType >= 'a' && pieceType <= 'z')) {
+			return false;
+		}
 	}
-	// check for player's own pieces at new spot
-	if(playerNumber == 0 && (pieceType >= 'A' && pieceType <= 'Z')) {
-		return false;
-	}
-	if(playerNumber == 1 && (pieceType >= 'a' && pieceType <= 'z')) {
-		return false;
-	}
+
+	
 	
 	// check if piece at cur can move to new tile
+	if(currentTile->getPiece()){
+		cout << "Current Piece: "<< currentTile->getPiece()->getType() << endl;
+	}
+	else{
+		cout << "No Piece!" << endl;
+		return false;
+	}	
 	return currentTile->getPiece()->checkMove(curRow, curCol, newRow, newCol);
 }

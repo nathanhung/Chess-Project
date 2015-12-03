@@ -118,6 +118,9 @@ void Controller::playGame(){
 				assert(game->getPlayer(0) && game->getPlayer(1));
 				if(!game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){
 					cout << "Invalid Move. 1" << endl;
+					td->update(game->getGrid());
+					td->print();
+					continue;
 				}
 				// valid move, check for capture, if not capturing, just moving piece to empty tile
 				if(newTile->getPiece()){
@@ -128,12 +131,16 @@ void Controller::playGame(){
 						// delete it and replace all pointers to NULL
 						game->getPlayer(1)->removePiece(newTile);
 						delete newTile->getPiece();
+						newTile->setPiece(NULL);
 					}
 				}
 			}
 			else {
 				if(!game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol)){
-					cout << "Invalid Move. 2 " << endl; 
+					cout << "Invalid Move. 2 " << endl;
+					td->update(game->getGrid());
+					td->print();
+					continue; 
 				}
 				// valid move, check for capture, if not capturing, just moving piece to empty tile
 				if(newTile->getPiece()){
@@ -142,31 +149,34 @@ void Controller::playGame(){
 						// delete it and replace all pointers to NULL
 						game->getPlayer(0)->removePiece(newTile);
 						delete newTile->getPiece();
+						newTile->setPiece(NULL);
 					}
 				}
 			}
-			cout << "Line 150 " << endl;
-
-
-			cout << "New coords: " << newRow << newCol << endl;
-			cout << "Current coords: " << curRow << curCol << endl;
-
-			if(currentTile->getPiece()){ // put piece in CURRENT spot at NEW SPOT
-				viewNotify(newRow, newCol, currentTile->getPiece()->getType());
+			// if the piece is just moving to an empty tile
+			if(!newTile->getPiece()){
+				game->setPiece(newRow, newCol, currentTile->getPiece());
+				game->setPiece(curRow, curCol, NULL);
 			}
-			else{
-				char c = ((newRow + newCol) % 2)? '-': ' ';
-				viewNotify(newRow, newCol, c);
-			}
-			if(newTile->getPiece()){
-				viewNotify(curRow, curCol, newTile->getPiece()->getType());
+
+			if(currentTile->getPiece()){ // update view based on empty space or piece
+				viewNotify(curRow, curCol, currentTile->getPiece()->getType());
 			}
 			else{
 				char c = ((curRow + curCol) % 2)? '-': ' ';
 				viewNotify(curRow, curCol, c);
 			}
+			if(newTile->getPiece()){ // update view based on empty space or piece
+				viewNotify(newRow, newCol, newTile->getPiece()->getType());
+			}
+			else{
+				char c = ((newRow + newCol) % 2)? '-': ' ';
+				viewNotify(newRow, newCol, c);
+			}
 			game->setTurn((game->getTurn() == 'W')? 'B':'W');
-			game->swapTiles(currentTile, newTile);
+
+
+
 		}
 		// setup
 		else if(cmd == "setup"){
@@ -272,9 +282,11 @@ void Controller::playGame(){
 				else{
 					cout << "Invalid move!" << endl;
 				}
+				td->update(game->getGrid());
 				td->print();
 			}
 		}
+		td->update(game->getGrid());
 		td->print();
 	}
 }

@@ -1,6 +1,8 @@
 #include "textdisplay.h"
 #include <iostream>
 #include <cassert>
+#include "../tile.h"
+#include "../pieces/chesspiece.h"
 using namespace std;
 
 TextDisplay::TextDisplay(int n): View(n){
@@ -87,4 +89,18 @@ void TextDisplay::notify(int row, int col, char newChar){
     assert(theDisplay);
     assert(row > -1 && col > -1);
     theDisplay[row][col] = newChar;
+}
+
+void TextDisplay::update(Tile** theGrid){
+
+    for(int i = 0; i < GRIDSIZE; i++){
+        for(int j = 0; j < GRIDSIZE; j++){
+            if(theGrid[i][j].getPiece()){
+                theDisplay[i][j] = theGrid[i][j].getPiece()->getType();
+            }
+            else{
+                theDisplay[i][j] = ((i+j) % 2)? '-': ' ';
+            }
+        }
+    }
 }

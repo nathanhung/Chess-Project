@@ -14,7 +14,7 @@ public:
 	void setCoords(int row, int col);
 	bool checkValid(int newRow, int newCol); // is the move valid? If no piece return true
 	void setPiece(ChessPiece* cp);
-	ChessPiece* getPiece();
+	ChessPiece* getPiece(); 
 	void setGame(Game* g);
 	int getRow();
 	int getColumn();

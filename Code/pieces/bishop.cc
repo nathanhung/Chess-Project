@@ -22,13 +22,14 @@ bool Bishop::checkMove(int curRow, int curCol, int newRow, int newCol) {
         if (reached == 0) return false;
     int i = curRow;
     int j = curCol;
+
 	// check if pieces are in the way
 	if (curRow > newRow && curCol > newCol) {
 		for (; i > newRow && j > newCol; i--, j--) {
 			if (game->getTile(i, j)->getPiece()) return false;
 		} 
 	} else if (curRow < newRow && curCol > newCol) {
-		for (; i < newRow && j > newCol; i++, j--) {
+		for (; i < newRow - 1 && j > newCol + 1; i++, j--) {
 			if (game->getTile(i, j)->getPiece()) return false;
 		}
 	} else if (curRow > newRow && curCol < newCol) {
