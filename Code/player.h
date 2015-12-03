@@ -24,8 +24,8 @@ public:
 	void removePiece(Tile* tile);
 	void setKing1(Tile* king);
 	void setKing2(Tile* king);
-	Tile* getKing1(){};
-	Tile* getKing2(){};
+	Tile* getKing1();
+	Tile* getKing2();
 	void promotePawn(char pieceType);
 	int getNumPieces();
 };
