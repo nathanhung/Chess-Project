@@ -234,8 +234,72 @@ bool Game::check(int index){ //index 0 = W, 1 = B
 
 	return false;
 }
+bool reachable(int kingRow, int kingCol, int newRow, int newCol, Player* p, Player* opponent){
 
-void Game::nextTurn(){
+	if(p->checkValid(kingRow, kingCol, newRow, newCol)){ //t check if 
+		bool reachable = false;
+		for(int i = 0; i < opponent->getNumPieces(); i++){
+			int curRow = opponent->getPiece(i)->getRow();
+			int curCol = opponent->getPiece(i)->getColumn();
+			if(opponent->checkValid(curRow, curCol, newRow, newCol)){
+				reachable = true;
+			}
+		}
+		if(!reachable){
+			return false;
+		}
+	}
+
+}
+bool Game::checkmate(int index){ // index of player, 0 = W, 1 = B
+	// if check we can check if King can move to a spot where the enemy cant
+	if(!check(index)){
+		return false;
+	}
+	// get current Index's king, so we can get its pos
+	Player* p = players[index];
+	Player* opponent = (index)? players[0] : players[1];
+	Tile* kingTile = (index)? p->getKing2() : p->getKing1();
+
+	int kingRow = kingTile->getRow();
+	int kingCol = kingTile->getColumn();
+
+	// go through every MOVEABLE spot the king can go to, 8 possibilities
+	// see if:
+	// 1. King can go to that spot (valid spot, empty or enemy piece)
+	// 2. Any enemy piece's can go there
+	// 3. If we've found a spot where King can go and enemy pieces can't, false
+	// 4. otherwise true
+
+	// we can call this player's checkvalid on this King for all 8 combinations
+	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol -1, p, opponent )){ // -1 -1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow, kingCol -1, p, opponent )){ // 0 -1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol, p, opponent )){ // -1 0
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol + 1, p, opponent )){ // +1 +1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow, kingCol + 1, p, opponent )){ // 0 +1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol, p, opponent )){ // +1 0
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol  +1, p, opponent )){ // -1 +1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol  - 1, p, opponent )){ // +1 -1
+		return false;
+	}
 	
+	return true;
+
+}
+void Game::nextTurn(){
 	turn = (turn == 'W')? 'B':'W';
 }

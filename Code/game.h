@@ -31,6 +31,7 @@ public:
 	void setEnPassant(bool value);
 	void setPiece(int row, int col, ChessPiece* piece);
 	bool check(int index);
+	bool checkmate(int index);
 	void nextTurn();
 	
 	// for testing
