@@ -10,8 +10,9 @@ class Game {
 	char turn; // 'W' = player1's turn, 'B' = player2's turn
 	Tile** theGrid;
 	const int GRIDSIZE;
-	Controller& controller; // change this to gameNotification?
+	Controller& controller; // change this to gameNotification
 	Player* players[2];
+	bool enPassant;
 public:
 	Game(int n, Controller& controller, std::string p1, std::string p2, char turn);
 	virtual ~Game();

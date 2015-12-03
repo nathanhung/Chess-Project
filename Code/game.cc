@@ -10,7 +10,7 @@
 #include "pieces/queen.h"
 #include "pieces/bishop.h"
 #include "controller.h"
-Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn){
+Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn), enPassant(false) {
 
 	// player1
 	// if human

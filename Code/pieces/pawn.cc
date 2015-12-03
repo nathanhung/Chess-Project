@@ -31,11 +31,36 @@ bool Pawn::checkMove(int curRow, int curCol, int newRow, int newCol) {
 		}
 	}
 	if (validCheck == 0) return false; // new position is unreachable
+	
+	// check if the diagonal move was valid	(en Passant check here)
+	char pieceType;
+	if (this->owner == 'W') {
+		if ((curRow - 1 == newRow && curCol - 1 == newCol) || (curRow - 1 == newRow && curCol + 1 == newCol)) {
+			if (!(game->getTile(newRow, newCol)->getPiece())) { // if new spot is empty
+				if (game->enPassant == false) return false;
+				if (!(game->getTile(curRow, newCol)->getPiece())) return false;
+				pieceType = game->getTile(curRow, newCol)->getPiece()->getType();
+				if (pieceType >= 'A' && pieceType <= 'Z') return false; // cannot enPassant own piece
+			}
+		}
+	} else {
+		if ((curRow + 1 == newRow && curCol - 1 == newCol) || (curRow + 1 == newRow && curCol + 1 == newCol)) {
+                        if (!(game->getTile(newRow, newCol)->getPiece())) { // if new spot is empty
+                                if (game->enPassant == false) return false;
+                                if (!(game->getTile(curRow, newCol)->getPiece())) return false;
+				pieceType = game->getTile(curRow, newCol)->getPiece()->getType();
+				if (pieceType >= 'a' && pieceType <= 'z') return false;				
+                        }
+                }
+	}	
+	// if it was 2 unit move, check both squares passed are empty
 	if (movedTwo == 1) {
 		if (this->owner == 'W') {
 			if (game->getTile(curRow - 1, newCol)->getPiece()) return false;
+			if (game->getTile(curRow - 2, newCol)->getPiece()) return false;
 		} else {
 			if (game->getTile(curRow + 1, newCol)->getPiece()) return false;
+			if (game->getTile(curRow + 2, newCol)->getPiece()) return false;
 		}
 	} 
 	return true;
