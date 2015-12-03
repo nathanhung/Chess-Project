@@ -22,46 +22,45 @@ bool Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
 
 	// check possible diagonal moves
         for (int i = 1; i <= 7; i++) {
-            if (curRow - i == newRow && curCol + i == newCol) {
+            if (curRow - i == newRow && curCol + i == newCol) { // top right
     			reached = 1;
     			reachByDiag = 1;
 		}
-            if (curRow + i == newRow && curCol + i == newCol) {
+            if (curRow + i == newRow && curCol + i == newCol) { // bottom right
     			reached = 1;
     			reachByDiag = 1;
 		}
-            if (curRow + i == newRow && curCol - i == newCol) {
+            if (curRow + i == newRow && curCol - i == newCol) { // bottom left
     			reached = 1;
     			reachByDiag = 1;
 		}
-            if (curRow - i == newRow && curCol - i == newCol) {
+            if (curRow - i == newRow && curCol - i == newCol) { // top left
     			reached = 1;
     			reachByDiag = 1;
-        }
-        //} or here?
-            if (reached == 0) return false;
+   		}
+        
         } // does the brace go here -- I put it here for now?
-	
+	if (reached == 0) return false;
 	// check if a piece is in the way from current to new position
 	if (reachByHor == 1) {
 		if (curRow == newRow) {
                 	if (curCol < newCol) {
-                        	for (int i = curCol; i < newCol; i++) {
+                        	for (int i = curCol + 1; i < newCol; i++) {
                                 	if (game->getTile(newRow, i)->getPiece()) return false;
                         	}
                 	} else {
-                        	for (int i = curCol; i > newCol; i--) {
+                        	for (int i = curCol - 1; i > newCol; i--) {
                                 	if (game->getTile(newRow, i)->getPiece()) return false;
                         	}
                 	}
         	}
         	if (curCol == newCol) {
                 	if (curRow < newRow) {
-                        	for (int i = curRow; i < newRow; i++) {
+                        	for (int i = curRow + 1; i < newRow; i++) {
                                 	if (game->getTile(i, newCol)->getPiece()) return false;
                         	}
                 	} else {
-                        	for (int i = curRow; i > newRow; i--) {
+                        	for (int i = curRow - 1; i > newRow; i--) {
                                 	if (game->getTile(i, newCol)->getPiece()) return false;
                         	}
                 	}
@@ -72,20 +71,20 @@ bool Queen::checkMove(int curRow, int curCol, int newRow, int newCol) {
     		int j = curCol;
         	// check if pieces are in the way
         	if (curRow > newRow && curCol > newCol) {
-                	for (; i > newRow && j > newCol; i--, j--) {
-                        	if (game->getTile(i, j)->getPiece()) return false;
+                	for (; i + 1 > newRow && j + 1 > newCol; i--, j--) {
+                        	if (game->getTile(i - 1, j - 1)->getPiece()) return false;
                 	}
         	} else if (curRow < newRow && curCol > newCol) {
-                	for (; i < newRow && j > newCol; i++, j--) {
-                        	if (game->getTile(i, j)->getPiece()) return false;
+                	for (; i - 1 < newRow && j + 1> newCol; i++, j--) {
+                        	if (game->getTile(i + 1, j - 1)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol < newCol) {
-                	for (; i > newRow && j < newCol; i--, j++) {
-                        	if (game->getTile(i, j)->getPiece()) return false;
+                	for (; i + 1 > newRow && j - 1 < newCol; i--, j++) {
+                        	if (game->getTile(i - 1, j + 1)->getPiece()) return false;
                 	}
         	} else if (curRow > newRow && curCol > newCol) {
-                	for (; i > newRow && j > newCol; i--, j--) {
-                        	if (game->getTile(i, j)->getPiece()) return false;
+                	for (; i + 1 > newRow && j + 1> newCol; i--, j--) {
+                        	if (game->getTile(i - 1, j - 1)->getPiece()) return false;
                 	}
         	}
 	}
