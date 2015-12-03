@@ -31,6 +31,13 @@ void Player::setKing2(Tile* king){
 	king2 = king;
 }
 
+Tile* Player::getKing1(){
+	return king1;
+}
+
+Tile* Player::getKing2(){
+	return king2;
+}
 // gets a piece from pieces array
 Tile* Player::getPiece(int index){
 	return pieces[index];

@@ -10,6 +10,9 @@
 #include "pieces/queen.h"
 #include "pieces/bishop.h"
 #include "controller.h"
+#include <iostream>
+using namespace std;
+
 Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDSIZE(n), controller(controller), turn(turn), enPassant(false) {
 
 	// player1
@@ -125,12 +128,29 @@ Player* Game::getPlayer(int n){
 	return players[n];
 }
 
-void Game::promotePawn(int row, int col, char pieceType){
-	theGrid[row][col].getPiece()->setType(pieceType);
-}
+void Game::promotePawn(int curRow, int curCol, int newRow, int newCol, char pieceType, char owner){
+	// set new position to new piece of type pieceType
+	// set cur pos to NULL
+	delete theGrid[curRow][curCol].getPiece();
+	theGrid[curRow][curCol].setPiece(NULL);
 
-void Game::swapTiles(Tile* currentTile, Tile* newTile){
-	
+	ChessPiece* newPiece;
+	if(pieceType == 'q' || pieceType + 32 == 'q'){
+		newPiece = new Queen(owner, pieceType, this);
+	}
+	else if(pieceType == 'b' || pieceType + 32 == 'b'){
+		newPiece = new Bishop(owner, pieceType, this);
+	}
+	else if(pieceType == 'r' || pieceType + 32 == 'r'){
+		newPiece = new Rook(owner, pieceType, this);
+	}
+	else if(pieceType == 'n' || pieceType + 32 == 'n'){
+		newPiece = new Knight(owner, pieceType, this);
+	}
+	else{
+		cout << "Invalid Piece type, cannot promote!" << endl;
+	}
+	theGrid[newRow][newCol].setPiece(newPiece);
 }
 
 Tile* Game::getTile(int row, int col){
@@ -186,6 +206,31 @@ bool Game::getEnPassant(){
 	return enPassant;
 }
 
+void Game::setEnPassant(bool value){
+	enPassant = value;
+}
+
 Tile** Game::getGrid(){
 	return theGrid;
+}
+
+bool Game::check(int index){ //index 0 = W, 1 = B
+	Player* p = players[index];
+	Player* opponent = (index)? players[0] : players[1];
+	Tile* kingTile = (index)? p->getKing2() : p->getKing1();
+
+	int kingRow = kingTile->getRow();
+	int kingCol = kingTile->getColumn();
+
+	// we have this player's position, now check if OPPOSITE player's
+	// pieces can reach THIS player's king
+	for(int i = 0; i < opponent->getNumPieces(); i++){
+		int curRow = opponent->getPiece(i)->getRow();
+		int curCol = opponent->getPiece(i)->getColumn();
+		if(opponent->checkValid(curRow, curCol, kingRow, kingCol)){
+			return true;
+		}
+	}
+
+	return false;
 }

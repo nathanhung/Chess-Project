@@ -24,11 +24,13 @@ public:
 	Tile* getTile(int row, int col);
 	void setTile(int row, int col, Tile& tile);
 	Player* getPlayer(int n);
-	void promotePawn(int row, int col, char pieceType);
+	void promotePawn(int curRow, int curCol, int newRow, int newCol, char pieceType, char owner);
 	void swapTiles(Tile* currentTile, Tile* newTile);
 	bool checkBoard();
 	bool getEnPassant();
+	void setEnPassant(bool value);
 	void setPiece(int row, int col, ChessPiece* piece);
+	bool check(int index);
 
 	// for testing
 	Tile** getGrid();

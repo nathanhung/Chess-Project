@@ -101,22 +101,25 @@ void Controller::playGame(){
 				if(currentTile->getPiece()->getType() == 'p' && newRow == 7){
 					// pawn promotion happening for BLACK
 					cin >> pieceType; // piece player wants for promotion
-					game->promotePawn(curRow, curCol, pieceType); // what fields are required here?
-					// TODO
+					game->promotePawn(curRow, curCol, newRow, newCol, pieceType, 'B'); // what fields are required here?
+
+					td->update(game->getGrid());
+					td->print();
 					continue;// same as below
 				}
 				else if(currentTile->getPiece()->getType() == 'P' && newRow == 0){
 					// pawn promotion happening for WHITE
 					cin >> pieceType; // piece player wants for promotion
-					game->promotePawn(curRow, curCol, pieceType);
-					continue; // cant  do this, must redisplay board
-					// must notify view
+					game->promotePawn(curRow, curCol, newRow, newCol, pieceType, 'W'); // what fields are required here?
+
+					td->update(game->getGrid());
+					td->print();
+					continue;// same as below
 				}
 			}
 			assert(game->getTurn());
 			// otherwise just move piece if possible
 			if(game->getTurn() == 'W'){
-				assert(game->getPlayer(0) && game->getPlayer(1));
 				if(!game->getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){
 					cout << "Invalid Move for  P1" << endl;
 					td->update(game->getGrid());
@@ -125,8 +128,6 @@ void Controller::playGame(){
 				}
 				// valid move, check for capture, if not capturing, just moving piece to empty tile
 				if(newTile->getPiece()){
-					assert(newTile->getPiece()->getType());
-
 					char type = newTile->getPiece()->getType();
 					if(type >= 'a' && type <= 'z'){ // piece is black, we are white
 						// delete it and replace all pointers to NULL
@@ -138,7 +139,7 @@ void Controller::playGame(){
 			}
 			else {
 				if(!game->getPlayer(1)->checkValid(curRow, curCol, newRow, newCol)){
-					cout << "Invalid Move for P2 " << endl;
+					cout << "Invalid Move for P2" << endl;
 					td->update(game->getGrid());
 					td->print();
 					continue; 
