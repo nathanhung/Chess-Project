@@ -25,20 +25,20 @@ bool Bishop::checkMove(int curRow, int curCol, int newRow, int newCol) {
 
 	// check if pieces are in the way
 	if (curRow > newRow && curCol > newCol) {
-		for (; i > newRow && j > newCol; i--, j--) {
-			if (game->getTile(i, j)->getPiece()) return false;
+		for (; i > newRow + 1 && j > newCol + 1; i--, j--) {
+			if (game->getTile(i - 1, j - 1)->getPiece()) return false;
 		} 
 	} else if (curRow < newRow && curCol > newCol) {
-		for (; i < newRow - 1 && j > newCol + 1; i++, j--) {
-			if (game->getTile(i, j)->getPiece()) return false;
+		for (; i < newRow -1 && j > newCol + 1; i++, j--) {
+			if (game->getTile(i + 1, j - 1)->getPiece()) return false;
 		}
 	} else if (curRow > newRow && curCol < newCol) {
-		for (; i > newRow && j < newCol; i--, j++) {
-                        if (game->getTile(i, j)->getPiece()) return false;
+		for (; i > newRow + 1 && j < newCol - 1; i--, j++) {
+                        if (game->getTile(i - 1, j + 1)->getPiece()) return false;
                 }
 	} else if (curRow > newRow && curCol > newCol) {
-		for (; i > newRow && j > newCol; i--, j--) {
-                        if (game->getTile(i, j)->getPiece()) return false;
+		for (; i > newRow + 1 && j > newCol + 1; i--, j--) {
+                        if (game->getTile(i - 1, j - 1)->getPiece()) return false;
                 }
 	}
 	return true;
