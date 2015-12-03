@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include "game.h"
 
-Player::Player(int number): game(NULL), numPieces(0), king1(NULL), king2(NULL), playerNumber(number){
+Player::Player(int number, Game* game): game(game), numPieces(0), king1(NULL), king2(NULL), playerNumber(number){
 	for(int i = 0; i < 16; i++){
 		pieces[i] = NULL;
 	}
@@ -61,6 +61,25 @@ bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
 	// or more simply, return false if the new pos is our OWN piece
 	char pieceType;
 	if(newTile->getPiece()){
+<<<<<<< HEAD
+		char pieceType = newTile->getPiece()->getType();
+	
+		// check for player's own pieces at new spot
+		if(playerNumber == 0 && (pieceType >= 'A' && pieceType <= 'Z')) {
+			return false;
+		}
+		if(playerNumber == 1 && (pieceType >= 'a' && pieceType <= 'z')) {
+			return false;
+		}
+		// check if piece at cur can move to new tile
+		for(int i = 0; i < numPieces; i++){
+			if(!pieces[i]->getPiece()->checkMove(curRow, curCol, newRow, newCol)) { 
+				return false;
+			}
+		}
+	}
+	return true;
+=======
 		pieceType = newTile->getPiece()->getType();
 	}
 	// check for player's own pieces at new spot
@@ -74,4 +93,5 @@ bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
 	// check if piece at cur can move to new tile
 	return pieces[i]->getPiece()->checkMove(curRow, curCol, newRow, newCol);
 
+>>>>>>> 13a6e86860cce89bb9bcff74a82a14b31224d471
 }
