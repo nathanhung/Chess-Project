@@ -19,7 +19,7 @@
 using namespace std;
 
 Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0), td(NULL), gd(NULL){
-	string display = "testing";
+	string display = "graphics";
 
 	td = new TextDisplay(8);
 	assert(td);

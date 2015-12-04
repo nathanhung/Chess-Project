@@ -1,17 +1,17 @@
 TODO LIST
 
 En Pasant - DONE
-Castling
-Graphics
+Castling - DONE
+Graphics - DONE
 Finish AI
 Checking if a Move puts you Into check - DONE
 Check - DONE
-Checkmate - DONE 
-Stalemate - DONE
+Checkmate - DONE - buggy  
+Stalemate - DONE - untested
 input from file - DONE
 assert statements everywhere for testing and /or redo's for "mispelled commands"
 Update UML and Final Design Document
-
+Scoring system
 
 If Time left at the end, Document everything
 
