@@ -28,8 +28,8 @@ Controller::Controller(std::string display = "text"): game(NULL), setup(false), 
 
 Controller::~Controller(){
 	delete game;
-	delete td;
-	//delete gd;
+	//delete td;
+	delete gd;
 }
 void Controller::updateViews(){
 	if(gd){

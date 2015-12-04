@@ -1,5 +1,6 @@
 #include "graphicdisplay.h"
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <cassert>
 #include "../tile.h"
@@ -19,7 +20,7 @@ pXwindow = new Xwindow;
     // setup the row indices
     for(int j = 0; j < GRIDSIZE; j++){
         // setup initial chars
-        theDisplay[i][j] = ((i+j) % 2)? '-': ' ';
+        theDisplay[i][j] =  ' ';
     	// do first row
     	if(i == 0){
     		if(j == 0 || j == 7){
@@ -78,21 +79,41 @@ GraphicDisplay::~GraphicDisplay(){
 }
                  
 void GraphicDisplay::print(){
-//    cout << endl;
+
     assert(theDisplay);
     assert(GRIDSIZE);
-	
-	for(int i = 0; i < GRIDSIZE; i++){
-		drawString(40, 50 * i, to_string(8 - i), Xwindow::black);	  	
-//        cout << 8 - i << " ";
-		for(int j = 0; j < GRIDSIZE; j++){
-			pXwindow->fillRectangle(50 * i, 50 * j, 50, 50, ((i + j)%2)? Xwindow::Black : Xwindow::White);
-			pXwindow->drawString(50 * i, 50 * j, theDisplay[i][j] + "", Xwindow::Black);			
-//			cout << theDisplay[i][j];
+	for (int i  = 0; i < GRIDSIZE; i++) {
+		for (int j = 0; j < GRIDSIZE; j++) {
+			pXwindow->fillRectangle(50 * i + 50, 50 * j, 50, 50, ((i + j) % 2)? Xwindow::Yellow : Xwindow::White);
 		}
-//		cout << endl;
 	}
-  //  cout << "  " << "abcdefgh" << endl;
+
+	for(int i = 0; i < GRIDSIZE; i++){
+		int n = i;
+		n = 8 - n;
+		stringstream ss;
+		ss << n;
+		string s = ss.str();
+		pXwindow->drawString(25, 50 * i + 25, s, Xwindow::Black);	  	
+
+		for(int j = 0; j < GRIDSIZE; j++){
+			stringstream ss2;
+			ss2 << theDisplay[i][j];
+			string s2 = ss2.str();
+			if (s2 == "-") {
+				s2 = "";
+			}
+			pXwindow->drawBigString(50 * (j + 1) + 25, 50 * i + 25, s2, Xwindow::Black);			
+		}
+	}
+	pXwindow->drawString(50 * 1 + 25, 425, "a", Xwindow::Black);
+	pXwindow->drawString(50 * 2 + 25, 425, "b", Xwindow::Black);
+	pXwindow->drawString(50 * 3 + 25, 425, "c", Xwindow::Black);
+	pXwindow->drawString(50 * 4 + 25, 425, "d", Xwindow::Black);
+	pXwindow->drawString(50 * 5 + 25, 425, "e", Xwindow::Black);
+	pXwindow->drawString(50 * 6 + 25, 425, "f", Xwindow::Black);
+	pXwindow->drawString(50 * 7 + 25, 425, "g", Xwindow::Black);
+	pXwindow->drawString(50 * 8 + 25, 425, "h", Xwindow::Black); 
 }
 
 void GraphicDisplay::notify(int row, int col, char newChar){

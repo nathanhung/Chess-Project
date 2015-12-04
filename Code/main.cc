@@ -7,7 +7,7 @@ using namespace std;
  * If -graphics argument is provided, forward this to the controller
  */
 int main () {
-    Controller c("text");
+    Controller c("graphics");
 
     #ifdef DEBUG
     cout << "Starting game...(main.cc: 11)" << endl;
