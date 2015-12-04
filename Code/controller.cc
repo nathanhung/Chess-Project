@@ -31,8 +31,8 @@ Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0), td(NULL)
 
 Controller::~Controller(){
 	delete game;
-	delete td;
-	//delete gd;
+	//delete td;
+	delete gd;
 }
 void Controller::updateFromFile(Tile** theGrid){
 	if(gd){
