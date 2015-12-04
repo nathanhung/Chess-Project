@@ -1,4 +1,5 @@
 #include "graphicdisplay.h"
+#include <string>
 #include <iostream>
 #include <cassert>
 #include "../tile.h"
@@ -82,7 +83,7 @@ void GraphicDisplay::print(){
     assert(GRIDSIZE);
 	
 	for(int i = 0; i < GRIDSIZE; i++){
-	  	
+		drawString(40, 50 * i, to_string(8 - i), Xwindow::black);	  	
 //        cout << 8 - i << " ";
 		for(int j = 0; j < GRIDSIZE; j++){
 			fillRectangle(50 * i, 50 * j, 50, 50, ((i + j)%2)? Xwindow::black : Xwindow::white);
