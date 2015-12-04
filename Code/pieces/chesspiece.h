@@ -9,7 +9,7 @@ protected:
 	char owner;
 public:
 	ChessPiece(char owner, char type, Game* game); //ctor
-	virtual ~ChessPiece() = 0;
+	virtual ~ChessPiece();
 	virtual bool checkMove(int curRow, int curCol, int newRow, int newCol) = 0;
 	char getType();
 	void setType(char pieceType);

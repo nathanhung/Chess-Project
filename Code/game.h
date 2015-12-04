@@ -32,6 +32,7 @@ public:
 	void setPiece(int row, int col, ChessPiece* piece);
 	bool check(int index);
 	bool checkmate(int index);
+	bool stalemate(int index);
 	void nextTurn();
 	
 	// for testing
