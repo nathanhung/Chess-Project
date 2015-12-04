@@ -19,7 +19,7 @@
 using namespace std;
 
 Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0), td(NULL), gd(NULL){
-	string display = "graphics";
+	string display = "text";
 
 	td = new TextDisplay(8);
 	assert(td);
@@ -30,10 +30,36 @@ Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0), td(NULL)
 }
 
 Controller::~Controller(){
-	delete game;
-	//delete td;
+	if(game){
+		delete game;
+		game = NULL;
+	}
+	delete td;
+	td = NULL;
 	delete gd;
+	gd = NULL;
 }
+
+void Controller::makeViews(){
+	if(td){
+		delete td;
+		td = NULL;
+	}
+	
+	if(gd){
+		delete gd;
+		gd = NULL;
+	}
+
+	td = new TextDisplay(8);
+	//gd = new GraphicDisplay(8);
+}
+void Controller::printScore(){
+	cout << "Final Score:" << endl;
+	cout << "White: " << WWins << endl;
+	cout << "Black: " << BWins << endl;
+}
+
 void Controller::updateFromFile(Tile** theGrid){
 	if(gd){
 		gd->update(theGrid);
@@ -47,21 +73,23 @@ void Controller::updateFromFile(Tile** theGrid){
 }
 
 void Controller::updateViews(){
-	if(gd){
+	if(gd && game){
 		gd->update(game->getGrid());
 		gd->print();
 	}
 
-	if(td){
+	if(td && game){
 		td->update(game->getGrid());
 		td->print();
 	}
 }
 
 void Controller::makeGame(string p1, string p2){
-	if(!game){
-		game = new Game(8, *this, p1, p2, 'W');
+	if(game){
+		delete game;
 	}
+
+	game = new Game(8, *this, p1, p2, 'W');
 }
 
 void Controller::viewNotify(int row, int col, char c){
@@ -80,10 +108,15 @@ if(game->getTurn() == 'W'){
 	}
 	
 	delete game;
+	game = NULL;
 }
 
 void Controller::readFile(string filename){
 	// need to only make the board
+	if(game){
+		delete game;
+	}
+
 	game = new Game(8, *this, filename);
 }
 
@@ -143,6 +176,13 @@ void Controller::playGame(){
 
 			assert(currentTile);
 			assert(newTile);
+
+			// Check to see if this move will put player into check, if it will don't let them do it
+			if(game->stillInCheck(curRow, curCol, newRow, newCol)){
+				cout << "You're still in check!" << endl;
+				continue;
+			}
+
 			// ***********************CHECK BEGIN ***************************
 			// check if player is IN check  right now
 			// if he is, he must make a move that takes him out of check
@@ -234,6 +274,7 @@ void Controller::playGame(){
 
 							game->getPlayer(0)->removePiece(newTile);
 							delete newTile->getPiece();
+							newTile->setPiece(NULL);
 							// now assume piece is moving to empty square
 							game->setPiece(newRow, newCol, currentTile->getPiece());
 							game->setPiece(curRow, curCol, NULL);
@@ -339,6 +380,7 @@ void Controller::playGame(){
 						game->setPiece(newRow, newCol, currentTile->getPiece());
 						game->setPiece(curRow, curCol, NULL);
 						delete game->getTile(newRow - 1, newCol)->getPiece();
+						game->getTile(newRow - 1, newCol)->setPiece(NULL);
 						game->setPiece(newRow - 1, newCol, NULL);
 						game->setEnPassant(false);
 
@@ -357,6 +399,7 @@ void Controller::playGame(){
 						game->setPiece(newRow, newCol, currentTile->getPiece());
 						game->setPiece(curRow, curCol, NULL);
 						delete game->getTile(newRow + 1, newCol)->getPiece();
+						game->getTile(newRow - 1, newCol)->setPiece(NULL);
 						game->setPiece(newRow + 1, newCol, NULL);
 						game->setEnPassant(false);
 
@@ -498,6 +541,7 @@ void Controller::playGame(){
 		// setup
 		else if(cmd == "setup"){
 			delete game;
+			game = NULL;
 			makeGame("human", "human");
 			cin >> cmd;
 
@@ -604,4 +648,5 @@ void Controller::playGame(){
 		}
 		updateViews();
 	}
+	printScore();
 }

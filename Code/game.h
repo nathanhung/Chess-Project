@@ -35,7 +35,7 @@ public:
 	bool checkmate(int index);
 	bool stalemate(int index);
 	void nextTurn();
-	
+	bool stillInCheck(int curRow, int curCol, int newRow, int newCol);
 	// for testing
 	Tile** getGrid();
 };

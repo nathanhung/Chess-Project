@@ -25,6 +25,8 @@ public:
 	void updateViews();
 	void updateFromFile(Tile** theGrid);
 	void readFile(string file);
+	void printScore();
+	void makeViews();
 	Controller();
 	virtual ~Controller();
 };

@@ -231,7 +231,14 @@ Game::~Game(){
 	for(int i = 0 ; i < GRIDSIZE; i++){
 		delete [] theGrid[i];
 	}
-	delete theGrid;
+	delete  [] theGrid;
+
+	delete players[0];
+	delete players[1];
+	players[0] = NULL;
+	players[1] = NULL;
+
+	controller.makeViews();
 }
 
 void Game::setPlayer(Player* p, int index){
@@ -362,76 +369,59 @@ bool Game::check(int index){ //index 0 = W, 1 = B
 	return false;
 }
 
-bool reachable(int kingRow, int kingCol, int newRow, int newCol, Player* p, Player* opponent){
-	if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
-		return false;
-	}
+// bool reachable(int kingRow, int kingCol, int newRow, int newCol, Player* p, Player* opponent){
+// 	if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
+// 		return true;
+// 	}
 
-	if(p->checkValid(kingRow, kingCol, newRow, newCol)){ // check if this spot is reachale by ANY of enemy's pieces
-		bool reachable = false;
-		for(int i = 0; i < opponent->getNumPieces(); i++){
-			int curRow = opponent->getPiece(i)->getRow();
-			int curCol = opponent->getPiece(i)->getColumn();
-			if(opponent->checkValid(curRow, curCol, newRow, newCol)){
-				reachable = true;
-			}
-		}
-		if(!reachable){
-			return false;
-		}
-	}
+// 	if(p->checkValid(kingRow, kingCol, newRow, newCol)){ // check if this spot is reachale by ANY of enemy's pieces
+// 		bool reachable = false;
+// 		for(int i = 0; i < opponent->getNumPieces(); i++){
+// 			int curRow = opponent->getPiece(i)->getRow();
+// 			int curCol = opponent->getPiece(i)->getColumn();
+// 			if(opponent->checkValid(curRow, curCol, newRow, newCol)){
+// 				reachable = true;
+// 			}
+// 		}
+// 		if(!reachable){
+// 			return false;
+// 		}
+// 	}
 
-	return true;
-}
+// 	return true;
+// }
 
 bool Game::checkmate(int index){ // index of player, 0 = W, 1 = B
 	// if check we can check if King can move to a spot where the enemy cant
-	if(!check(index)){
+	if(!check(index)){ // basic check
+		cout << "Not in check!" << endl;
 		return false;
 	}
 	// get current Index's king, so we can get its pos
 	Player* p = players[index];
-	Player* opponent = (index)? players[0] : players[1];
-	Tile* kingTile = (index)? p->getKing2() : p->getKing1();
+	//Player* opponent = (index)? players[0] : players[1];
 
-	int kingRow = kingTile->getRow();
-	int kingCol = kingTile->getColumn();
-
-	// go through every MOVEABLE spot the king can go to, 8 possibilities
+	// go through every spot on the board and see if this player's piece can go there
 	// see if:
-	// 1. King can go to that spot (valid spot, empty or enemy piece)
-	// 2. Any enemy piece's can go there
-	// 3. If we've found a spot where King can go and enemy pieces can't, false
-	// 4. otherwise true
-
-	// we can call this player's checkvalid on this King for all 8 combinations
-	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol -1, p, opponent )){ // -1 -1
-		return false;
+	// 1. for every tile on the board
+	// 2. see if this player can move to any of those spots with its pieces
+	// 3. If for all the possible moves we are STILL in check, return true
+	// 4. otherwise if we found a possible move that takes us out of check return false
+	for(int i = 0; i < GRIDSIZE; i++){ // 1.
+		for(int j = 0; j < GRIDSIZE; j++){
+			for(int k = 0; k < p->getNumPieces(); k++){ // 2.
+				int curRow = p->getPiece(k)->getRow();
+				int curCol = p->getPiece(k)->getColumn();
+				if(p->checkValid(curRow, curCol, i, j)){ // 3.
+					if(!stillInCheck(curRow, curCol, i, j)){
+						cout << "Found possible move!" << curRow << curCol << i << j << turn<< endl;
+						return false;
+					}
+				}
+			}
+		}
 	}
-	if(!reachable(kingRow, kingCol, kingRow, kingCol -1, p, opponent )){ // 0 -1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol, p, opponent )){ // -1 0
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol + 1, p, opponent )){ // +1 +1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow, kingCol + 1, p, opponent )){ // 0 +1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol, p, opponent )){ // +1 0
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol  +1, p, opponent )){ // -1 +1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol  - 1, p, opponent )){ // +1 -1
-		return false;
-	}
-
 	return true;
-
 }
 
 // only difference with checkmate is that person is NOT in check
@@ -442,48 +432,131 @@ bool Game::stalemate(int index){// index of player, 0 = W, 1 = B
 	}
 	// get current Index's king, so we can get its pos
 	Player* p = players[index];
-	Player* opponent = (index)? players[0] : players[1];
-	Tile* kingTile = (index)? p->getKing2() : p->getKing1();
+	//Player* opponent = (index)? players[0] : players[1];
+	// Tile* kingTile = (index)? p->getKing2() : p->getKing1();
 
-	int kingRow = kingTile->getRow();
-	int kingCol = kingTile->getColumn();
-
-	// go through every MOVEABLE spot the king can go to, 8 possibilities
+	// go through every spot on the board and see if this player's piece can go there
 	// see if:
-	// 1. King can go to that spot (valid spot, empty or enemy piece)
-	// 2. Any enemy piece's can go there
-	// 3. If we've found a spot where King can go and enemy pieces can't, false
-	// 4. otherwise true
-
-	// we can call this player's checkvalid on this King for all 8 combinations
-	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol -1, p, opponent )){ // -1 -1
-		return false;
+	// 1. for every tile on the board
+	// 2. see if this player can move to any of those spots with its pieces
+	// 3. If we've found a spot where that is reachable by at least one piece of this player AND doesn't put us in check
+	// 4. return false
+	// 5. if not false YET, double check to see if king can go there
+	for(int i = 0; i < GRIDSIZE; i++){ // 1.
+		for(int j = 0; j < GRIDSIZE; j++){
+			for(int k = 0; k < p->getNumPieces(); k++){ // 2.
+				int curRow = p->getPiece(k)->getRow();
+				int curCol = p->getPiece(k)->getColumn();
+				if(p->checkValid(curRow, curCol, i, j)){ // 3.
+					if(!stillInCheck(curRow, curCol, i, j)){
+						return false; 
+					}
+				}
+			}
+		}
 	}
-	if(!reachable(kingRow, kingCol, kingRow, kingCol -1, p, opponent )){ // 0 -1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol, p, opponent )){ // -1 0
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol + 1, p, opponent )){ // +1 +1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow, kingCol + 1, p, opponent )){ // 0 +1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol, p, opponent )){ // +1 0
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol  +1, p, opponent )){ // -1 +1
-		return false;
-	}
-	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol  - 1, p, opponent )){ // +1 -1
-		return false;
-	}
-
 	return true;
-
 }
+
 void Game::nextTurn(){
 	turn = (turn == 'W')? 'B':'W';
+}
+
+bool Game::stillInCheck(int curRow, int curCol, int newRow, int newCol){
+	Tile* currentTile = getTile(curRow, curCol);
+	Tile* newTile = getTile(newRow, newCol);
+	//bool stillCheck = true; // assume player was in check from the beggining
+	// after making this move, would the player still be in check?
+	if(getTurn() == 'B'){ // white in check, turn check not necessary here but precautionary
+		// check to see if the move they're trying to make will take them out of check
+		if(getPlayer(0)->checkValid(curRow, curCol, newRow, newCol)){ // move is valid
+			// cases
+			// king / piece moves to an empty square
+			// move it there, check for check then undo if still check
+			if(!newTile->getPiece()){
+				setPiece(newRow, newCol, currentTile->getPiece());
+				setPiece(curRow, curCol, NULL);
+				// check if it was a valid move:
+				 // swaps them back 
+				
+				if(check(0)){
+					cout << "Invalid move, you will still be in check! (White)" << endl;
+				}
+				setPiece(curRow, curCol, newTile->getPiece());
+				setPiece(newRow, newCol, NULL);
+
+				if(check(0)){
+					return true;
+				}
+
+			}
+			// king /piece kills enemy piece
+			// replace piece ptr to NULL while storing it in oppPiece, move our piece there
+			// check for check
+			// undo if still check: includes moving piece back and bringing it back
+			// remember to kill piece if move is valid
+			else{
+				ChessPiece* oppPiece = newTile->getPiece(); 
+				setPiece(newRow, newCol, currentTile->getPiece());
+				setPiece(curRow, curCol, NULL);
+				
+				if(check(0)){
+					cout << "Invalid move, you will still be in check! (White)" << endl;
+				}
+				setPiece(curRow, curCol, newTile->getPiece());
+				setPiece(newRow, newCol, oppPiece);
+
+				if(check(0)){
+					return true;
+				}
+			}
+		} 
+	}
+
+	if(getTurn() == 'W'){ // white in check, turn check not necessary here but precautionary
+		// check to see if the move they're trying to make will take them out of check
+		if(getPlayer(1)->checkValid(curRow, curCol, newRow, newCol)){ // move is valid
+			// cases
+			// king / piece moves to an empty square
+			// move it there, check for check then undo if still check
+			if(!newTile->getPiece()){
+				setPiece(newRow, newCol, currentTile->getPiece());
+				setPiece(curRow, curCol, NULL);
+				// check if it was a valid move:
+				 // swaps them back
+				
+				if(check(0)){
+					cout << "Invalid move, you will still be in check! (Black)" << endl;
+				}
+				setPiece(curRow, curCol, newTile->getPiece());
+				setPiece(newRow, newCol, NULL);
+
+				if(check(1)){
+					return true;
+				}
+			}
+			// king /piece kills enemy piece
+			// replace piece ptr to NULL while storing it in oppPiece, move our piece there
+			// check for check
+			// undo if still check: includes moving piece back and bringing it back
+			// remember to kill piece if move is valid
+			else{
+				ChessPiece* oppPiece = newTile->getPiece(); 
+				setPiece(newRow, newCol, currentTile->getPiece());
+				setPiece(curRow, curCol, NULL);
+
+				if(check(1)){
+					cout << "Invalid move, you will still be in check! (Black)" << endl;
+				}
+
+				setPiece(curRow, curCol, newTile->getPiece());
+				setPiece(newRow, newCol, oppPiece);
+
+				if(check(1)){
+					return true;
+				}
+			}
+		} 
+	}
+	return false;
 }

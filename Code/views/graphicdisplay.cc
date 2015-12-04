@@ -74,8 +74,9 @@ GraphicDisplay::~GraphicDisplay(){
 	for(int i = 0; i < GRIDSIZE; i++){
 		delete [] theDisplay[i];
 	}
-	delete theDisplay;
+	delete [] theDisplay;
 	delete pXwindow; // call Xwindows dtor
+    pXwindow = NULL;
 }
                  
 void GraphicDisplay::print(){
