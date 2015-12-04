@@ -22,9 +22,8 @@ public:
 	void gameNotify(int row1, char col1, int row2, char col2);
 	void resign();
 	void viewNotify(int row, int col, char newChar);
-	int toIndex(char c);
-	int toIndex(int n);
-	Controller();
+	void updateViews();
+	Controller(std::string);
 	virtual ~Controller();
 };
 #endif

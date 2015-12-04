@@ -43,6 +43,15 @@ Tile* Player::getPiece(int index){
 	return pieces[index];
 }
 
+void Player::setPiece(Tile* oldTile, Tile* newTile){
+	for(int i = 0; i < numPieces; i++){
+		if(pieces[i] == oldTile){
+			pieces[i] = newTile;
+			return;
+		}
+	}
+}
+
 void Player::removePiece(Tile* tile){
 	// find tile in our pieces array, and shift to left, deleting happens in cont
 	int i;
@@ -63,8 +72,11 @@ int Player::getNumPieces(){
 // checks if move is possible based on current position and desired position
 bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
 
-	assert(newRow > -1 && newRow <= 7);
-	assert(newCol > -1 && newCol <= 7);
+	// cout <<"PIECE POS: "<< curRow << curCol << endl;
+	// cout << "NEW POS "<< newRow << newCol << endl;
+
+	assert(newRow > -1 && newRow < 8);
+	assert(newCol > -1 && newCol < 8);
 	// find the tile at cur
 	Tile* currentTile = game->getTile(curRow, curCol);
 	Tile* newTile = game->getTile(newRow, newCol);
@@ -88,11 +100,11 @@ bool Player::checkValid(int curRow, int curCol, int newRow, int newCol){
 	
 	
 	// check if piece at cur can move to new tile
-	if(currentTile->getPiece()){
-		cout << "Current Piece: "<< currentTile->getPiece()->getType() << endl;
-	}
-	else{
-		cout << "No Piece!" << endl;
+	// if(currentTile->getPiece()){
+	// 	cout << "Current Piece: "<< currentTile->getPiece()->getType() << endl;
+	// }
+	if(!currentTile->getPiece()){
+		//cout << "No Piece!" << endl;
 		return false;
 	}	
 	return currentTile->getPiece()->checkMove(curRow, curCol, newRow, newCol);

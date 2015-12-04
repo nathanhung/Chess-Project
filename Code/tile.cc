@@ -2,13 +2,15 @@
 #include <cstdlib>
 #include "game.h"
 #include "pieces/chesspiece.h"
+#include <cassert>
 using namespace std;
 
 Tile::Tile(): game(NULL), piece(NULL){}
 
 Tile::~Tile(){
-	delete piece;
-	delete this;
+	if(piece){
+		delete piece;
+	}
 }
 
 void Tile::notify (int row1, int col1, int row2, int col2) {
@@ -21,9 +23,9 @@ void Tile::notify (int row1, int col1, int row2, int col2) {
 	} 
 }
 
-void Tile::setCoords(int row, int col) {
-	row = row;
-	column = col;
+void Tile::setCoords(int i, int j) {
+	this->row = i;
+	this->column = j;
 }
 
 bool Tile::checkValid(int newRow, int newCol) {
@@ -44,6 +46,7 @@ ChessPiece* Tile::getPiece(){
 
 void Tile::setGame(Game* g){
 	game = g;
+	assert(game);
 }
 
 int Tile::getRow(){

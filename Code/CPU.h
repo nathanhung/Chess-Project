@@ -13,5 +13,6 @@ public:
 	CPU(int number, int level, Game* game);
 	virtual ~CPU();
 	std::string getMove();
+	bool isCPU();
 };
 #endif

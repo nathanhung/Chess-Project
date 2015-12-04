@@ -86,8 +86,8 @@ void GraphicDisplay::print(){
 		drawString(40, 50 * i, to_string(8 - i), Xwindow::black);	  	
 //        cout << 8 - i << " ";
 		for(int j = 0; j < GRIDSIZE; j++){
-			fillRectangle(50 * i, 50 * j, 50, 50, ((i + j)%2)? Xwindow::black : Xwindow::white);
-			drawString(50 * i, 50 * j, theDisplay[i][j], Xwindow::black);			
+			pXwindow->fillRectangle(50 * i, 50 * j, 50, 50, ((i + j)%2)? Xwindow::Black : Xwindow::White);
+			pXwindow->drawString(50 * i, 50 * j, theDisplay[i][j] + "", Xwindow::Black);			
 //			cout << theDisplay[i][j];
 		}
 //		cout << endl;

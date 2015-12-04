@@ -39,10 +39,13 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 
 	// setup theGrid
 	theGrid = new Tile* [GRIDSIZE];
-  	for(int i = 0; i < GRIDSIZE; ++i){
+  	for(int i = 0; i < GRIDSIZE; i++){
 	    theGrid[i] = new Tile[GRIDSIZE];
 	    // setup the row indices
 	    for(int j = 0; j < GRIDSIZE; j++){
+
+	    	theGrid[i][j].setGame(this);
+	    	theGrid[i][j].setCoords(i, j);
 	    	// do first row
 	    	if(i == 0){
 	    		if(j == 0 || j == 7){
@@ -59,7 +62,7 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    		}
 	    		else{
 	    			theGrid[i][j].setPiece(new King('B','k', this));
-	    			players[0]->setKing1(&theGrid[i][j]);
+	    			players[0]->setKing2(&theGrid[i][j]);
 	    			players[1]->setKing2(&theGrid[i][j]);
 	    		}
 	    		players[1]->addPiece(&theGrid[i][j]);
@@ -94,14 +97,12 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    		else{
 	    			theGrid[i][j].setPiece(new King('W', 'K', this));
 	    			players[0]->setKing1(&theGrid[i][j]);
-	    			players[1]->setKing2(&theGrid[i][j]);
+	    			players[1]->setKing1(&theGrid[i][j]);
 	    		}
 	    		players[0]->addPiece(&theGrid[i][j]);
 	    	}
-	    	theGrid[i][j].setGame(this);
-	    	theGrid[i][j].setCoords(i, j);
     	}
-  } 	
+    }
 }
 
 Game::~Game(){
@@ -112,7 +113,7 @@ Game::~Game(){
 }
 
 void Game::setPlayer(Player* p, int index){
-	players[index];
+	players[index] = p;
 }
 
 char Game::getTurn(){
@@ -227,16 +228,24 @@ bool Game::check(int index){ //index 0 = W, 1 = B
 	for(int i = 0; i < opponent->getNumPieces(); i++){
 		int curRow = opponent->getPiece(i)->getRow();
 		int curCol = opponent->getPiece(i)->getColumn();
+		// cout << kingRow<< kingCol << endl;
+
+		// cout <<"PIECE POS: "<< curRow << curCol << endl;
+		// cout << "KING POS "<< kingRow << kingCol << endl;
+
 		if(opponent->checkValid(curRow, curCol, kingRow, kingCol)){
 			return true;
 		}
 	}
-
 	return false;
 }
-bool reachable(int kingRow, int kingCol, int newRow, int newCol, Player* p, Player* opponent){
 
-	if(p->checkValid(kingRow, kingCol, newRow, newCol)){ //t check if 
+bool reachable(int kingRow, int kingCol, int newRow, int newCol, Player* p, Player* opponent){
+	if(newRow < 0 || newRow > 7 || newCol < 0 || newCol > 7){
+		return false;
+	}
+
+	if(p->checkValid(kingRow, kingCol, newRow, newCol)){ // check if this spot is reachale by ANY of enemy's pieces
 		bool reachable = false;
 		for(int i = 0; i < opponent->getNumPieces(); i++){
 			int curRow = opponent->getPiece(i)->getRow();
@@ -250,7 +259,9 @@ bool reachable(int kingRow, int kingCol, int newRow, int newCol, Player* p, Play
 		}
 	}
 
+	return true;
 }
+
 bool Game::checkmate(int index){ // index of player, 0 = W, 1 = B
 	// if check we can check if King can move to a spot where the enemy cant
 	if(!check(index)){
@@ -296,7 +307,58 @@ bool Game::checkmate(int index){ // index of player, 0 = W, 1 = B
 	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol  - 1, p, opponent )){ // +1 -1
 		return false;
 	}
-	
+
+	return true;
+
+}
+
+// only difference with checkmate is that person is NOT in check
+bool Game::stalemate(int index){// index of player, 0 = W, 1 = B
+	// if check we can check if King can move to a spot where the enemy cant
+	if(check(index)){ // this will be assumed but just in case
+		return false;
+	}
+	// get current Index's king, so we can get its pos
+	Player* p = players[index];
+	Player* opponent = (index)? players[0] : players[1];
+	Tile* kingTile = (index)? p->getKing2() : p->getKing1();
+
+	int kingRow = kingTile->getRow();
+	int kingCol = kingTile->getColumn();
+
+	// go through every MOVEABLE spot the king can go to, 8 possibilities
+	// see if:
+	// 1. King can go to that spot (valid spot, empty or enemy piece)
+	// 2. Any enemy piece's can go there
+	// 3. If we've found a spot where King can go and enemy pieces can't, false
+	// 4. otherwise true
+
+	// we can call this player's checkvalid on this King for all 8 combinations
+	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol -1, p, opponent )){ // -1 -1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow, kingCol -1, p, opponent )){ // 0 -1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol, p, opponent )){ // -1 0
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol + 1, p, opponent )){ // +1 +1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow, kingCol + 1, p, opponent )){ // 0 +1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol, p, opponent )){ // +1 0
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow - 1, kingCol  +1, p, opponent )){ // -1 +1
+		return false;
+	}
+	if(!reachable(kingRow, kingCol, kingRow + 1, kingCol  - 1, p, opponent )){ // +1 -1
+		return false;
+	}
+
 	return true;
 
 }
