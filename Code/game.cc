@@ -10,6 +10,7 @@
 #include "pieces/queen.h"
 #include "pieces/bishop.h"
 #include "controller.h"
+#include <fstream>
 #include <iostream>
 using namespace std;
 
@@ -103,6 +104,127 @@ Game::Game(int n, Controller& controller,string p1, string p2, char turn): GRIDS
 	    	}
     	}
     }
+}
+
+Game::Game(int n, Controller& controller, string filename): GRIDSIZE(n), controller(controller), enPassant(false) {
+	ifstream file(filename.c_str());
+
+	if(!file.good()){
+		cout << "File not found!" << endl;
+	}
+
+	char piece;
+	char owner;
+	ChessPiece* cp;
+
+	theGrid = new Tile* [GRIDSIZE];
+  	for(int i = 0; i < GRIDSIZE; i++){
+	    theGrid[i] = new Tile[GRIDSIZE];
+	    // setup the row indices
+	    for(int j = 0; j < GRIDSIZE; j++){
+
+	    	theGrid[i][j].setGame(this);
+	    	theGrid[i][j].setCoords(i, j);
+	    	file >> piece;
+	    	cout << "Piece: " << piece << endl;
+	    	// piece type check
+	    	if(piece == 'p' || piece + 32 == 'p'){
+				cp = new Pawn('W', piece, this);
+			}
+			// Bishop
+			else if(piece == 'b' || piece + 32 == 'b'){
+				cp = new Bishop('W', piece, this);
+			}
+			// Rook
+			else if(piece == 'r' || piece + 32 == 'r'){
+				cp = new Rook('W', piece, this);
+			}
+			// Queen
+			else if(piece == 'q' || piece + 32 == 'q'){
+				cp = new Queen('W', piece, this);
+			}
+			// King
+			else if(piece == 'k' || piece + 32 == 'k'){
+				cp = new King('W', piece, this);
+			}
+			// Knight
+			else if(piece == 'n' || piece + 32 == 'n'){
+				cp = new Knight('W', piece, this);
+			}
+			// empty piece
+			else if(piece == '_'){
+				continue;
+			}
+			// else ERROR
+			else{
+				cout << "INVALID PIECE TYPE IN FILE READ MODE!" << endl;
+				continue;
+			}
+			theGrid[i][j].setPiece(cp);
+			theGrid[i][j].getPiece()->getType();
+		}
+		//file.ignore();
+		
+	}
+	// made grid, get turn
+		file >> piece;
+		turn = piece;
+
+		cout << turn << endl;
+		// get types of player's and set their pieces
+		string p1, p2;
+		cin >> p1 >> p1 >> p2; // scrap "game" word
+
+		// player1
+		// if human
+		if (p1 == "human"){
+			players[0] = new Human(0, this);
+		} 
+		// otherwise its a CPU
+		else {
+			int level = p1.at(8) - '0';
+			players[0] = new CPU(0, level, this);
+		}
+
+		// player2
+		// if human
+		if (p2 == "human"){
+			players[1] = new Human(1, this);
+		} 
+		// otherwise its a CPU
+		else { // we have computer1
+			int level = p2.at(8) - '0';
+			players[1] = new CPU(1, level, this);
+		}
+
+		for(int i = 0; i < GRIDSIZE; i++){
+			for(int j = 0; j < GRIDSIZE; j++){
+				char c = ' ';
+				if(theGrid[i][j].getPiece()){
+					c = theGrid[i][j].getPiece()->getType();
+				}
+				if(c == 'K'){
+					players[0]->setKing1(&theGrid[i][j]);
+					players[1]->setKing1(&theGrid[i][j]);
+				}
+				else if(c == 'k'){
+					players[0]->setKing2(&theGrid[i][j]);
+					players[1]->setKing2(&theGrid[i][j]);
+				}
+				if(c >= 'A' && c <= 'Z'){ // White's piece
+					players[0]->addPiece(&theGrid[i][j]);
+				}
+				else if(c >= 'a' && c <= 'z'){ // Black's piece
+					players[1]->addPiece(&theGrid[i][j]);
+				}
+				else{
+					continue;
+				}
+			}
+		}
+		// check for castling
+		//controller.updateViews(); 
+		controller.updateFromFile(theGrid);
 }
 
 Game::~Game(){

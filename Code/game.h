@@ -15,6 +15,7 @@ class Game {
 	bool enPassant;
 public:
 	Game(int n, Controller& controller, std::string p1, std::string p2, char turn);
+	Game(int n, Controller& controller, std::string filename);
 	virtual ~Game();
 	void setPlayer(Player* p, int index);
 	void tileNotify(int curRow, char curCol, int newRow, char newCol);

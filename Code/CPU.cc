@@ -62,6 +62,7 @@ string CPU::getMove(){
 			}
 		}
 	}
+	
 	assert(length);
 	int random = rand() % length;
 	assert(random);

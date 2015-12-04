@@ -11,3 +11,11 @@ char ChessPiece::getType(){
 void ChessPiece::setType(char pieceType){
 	type = pieceType;
 }
+
+bool ChessPiece::getCastling(){
+	return false;
+}
+
+void ChessPiece::setCastling(){
+	return;
+}

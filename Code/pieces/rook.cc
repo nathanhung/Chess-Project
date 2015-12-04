@@ -1,9 +1,13 @@
 #include "rook.h"
 #include "../game.h"
 
-Rook::Rook(char owner, char type, Game* game): ChessPiece(owner, type, game) {}
+Rook::Rook(char owner, char type, Game* game): ChessPiece(owner, type, game), castling(true){}
 
 Rook::~Rook() {}
+
+bool Rook::getCastling(){
+	return castling;
+}
 
 bool Rook::checkMove (int curRow, int curCol, int newRow, int newCol) {
 	if (newRow > 7 || newRow < 0) return false;

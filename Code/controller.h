@@ -8,7 +8,7 @@ class Game;
 class Player;
 class TextDisplay;
 class GraphicDisplay;
-
+class Tile;
 class Controller {
 	char turn;
 	int BWins, WWins;
@@ -23,7 +23,9 @@ public:
 	void resign();
 	void viewNotify(int row, int col, char newChar);
 	void updateViews();
-	Controller(std::string);
+	void updateFromFile(Tile** theGrid);
+	void readFile(string file);
+	Controller();
 	virtual ~Controller();
 };
 #endif

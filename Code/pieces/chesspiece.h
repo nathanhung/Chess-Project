@@ -3,8 +3,8 @@
 class Game;
 
 class ChessPiece {
-	char type;
 protected:
+	char type;
 	Game* game;
 	char owner;
 public:
@@ -13,6 +13,8 @@ public:
 	virtual bool checkMove(int curRow, int curCol, int newRow, int newCol) = 0;
 	char getType();
 	void setType(char pieceType);
+	virtual bool getCastling();
+	virtual void setCastling();
 };
 
 #endif

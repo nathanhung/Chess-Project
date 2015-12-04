@@ -1,9 +1,17 @@
 #include "king.h"
 #include "../game.h"
 
-King::King(char owner, char type, Game* game): ChessPiece(owner, type, game) {} 
+King::King(char owner, char type, Game* game): ChessPiece(owner, type, game), castling(true) {} 
 
 King::~King() {} // dtor
+
+bool King::getCastling(){
+	return castling;
+}
+
+void King::setCastling(){
+	castling = false;
+}
 
 bool King::checkMove(int curRow, int curCol, int newRow, int newCol) {
 	if (newRow > 7 || newRow < 0) return false;

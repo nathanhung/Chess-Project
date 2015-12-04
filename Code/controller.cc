@@ -14,10 +14,13 @@
 #include "pieces/pawn.h"
 #include "pieces/knight.h"
 #include "convert.h"
+#include "tile.h"
 #include <cassert>
 using namespace std;
 
-Controller::Controller(std::string display = "text"): game(NULL), setup(false), BWins(0), WWins(0), td(NULL), gd(NULL){
+Controller::Controller(): game(NULL), setup(false), BWins(0), WWins(0), td(NULL), gd(NULL){
+	string display = "testing";
+
 	td = new TextDisplay(8);
 	assert(td);
 
@@ -31,6 +34,18 @@ Controller::~Controller(){
 	delete td;
 	//delete gd;
 }
+void Controller::updateFromFile(Tile** theGrid){
+	if(gd){
+		gd->update(theGrid);
+		gd->print();
+	}
+
+	if(td){
+		td->update(theGrid);
+		td->print();
+	}
+}
+
 void Controller::updateViews(){
 	if(gd){
 		gd->update(game->getGrid());
@@ -42,12 +57,11 @@ void Controller::updateViews(){
 		td->print();
 	}
 }
-void Controller::makeGame(string p1, string p2){
-	
-	game = new Game(8, *this, p1, p2, 'W');
 
-	// TODO
-	// setup views and print 
+void Controller::makeGame(string p1, string p2){
+	if(!game){
+		game = new Game(8, *this, p1, p2, 'W');
+	}
 }
 
 void Controller::viewNotify(int row, int col, char c){
@@ -66,6 +80,11 @@ if(game->getTurn() == 'W'){
 	}
 	
 	delete game;
+}
+
+void Controller::readFile(string filename){
+	// need to only make the board
+	game = new Game(8, *this, filename);
 }
 
 void Controller::playGame(){
@@ -119,9 +138,6 @@ void Controller::playGame(){
 				assert(newCol >= 0 && newCol <= 7);
 			}
 			
-			// remember to check for pawn promotion
-			// first check if its a pawn then see if spot2 is the edge of the board
-			// through game->getTile 
 			Tile* currentTile = game->getTile(curRow, curCol);
 			Tile* newTile = game->getTile(newRow, newCol);
 
@@ -231,6 +247,85 @@ void Controller::playGame(){
 				} 
 			}
 			// ***********************CHECK END ***************************
+			// *********************** CASTLING BEGIN ******************************
+			if(currentTile->getPiece()){ 
+				ChessPiece* cp = currentTile->getPiece();
+				// check castling attempt from White
+				if(cp->getType() == 'K' && cp->getCastling() && curRow == 7 && curCol == 4 && (curCol - newCol)) { 
+					// WHITE CASTLING LEFT
+					if(curCol > newCol){ // moving left, check left rook for castling and pos
+						Tile* rookTile = game->getTile(7,0);
+						if(rookTile->getPiece() && rookTile->getPiece()->getType() == 'R' && rookTile->getPiece()->getCastling()){
+							// check for positions in between 
+							if(!game->getTile(7,1)->getPiece() && !game->getTile(7,2)->getPiece() && !game->getTile(7,3)->getPiece()){
+								// king moves 2 spots left rook moves 3 to the right (7, 2) (7, 3)
+								game->getTile(7, 2)->setPiece(cp);
+								currentTile->setPiece(NULL);
+								game->getTile(7, 3)->setPiece(rookTile->getPiece());
+								rookTile->setPiece(NULL);
+								cp->setCastling();
+							}
+						}
+					}
+					// WHITE CASTLING RIGHT
+					if(curCol < newCol){ // moving left, check left rook for castling and pos
+						Tile* rookTile = game->getTile(7,7);
+						if(rookTile->getPiece() && rookTile->getPiece()->getType() == 'R' && rookTile->getPiece()->getCastling()){
+							// check for positions in between 
+							if(!game->getTile(7,5)->getPiece() && !game->getTile(7,6)->getPiece()){
+								// king moves 2 spots left rook moves 3 to the right (7, 2) (7, 3)
+								game->getTile(7, 6)->setPiece(cp);
+								currentTile->setPiece(NULL);
+								game->getTile(7, 5)->setPiece(rookTile->getPiece());
+								rookTile->setPiece(NULL);
+								cp->setCastling();
+							}
+						}
+					}
+					updateViews();
+					game->nextTurn();
+					continue;
+				}
+
+				// check castling attempt from Black
+				if(cp->getType() == 'k' && cp->getCastling() && curRow == 0 && curCol == 4 && (curCol - newCol)) { 
+					// BLACK CASTLING LEFT
+					if(curCol > newCol){ // moving left, check left rook for castling and pos
+						Tile* rookTile = game->getTile(0,0);
+						if(rookTile->getPiece() && rookTile->getPiece()->getType() == 'r' && rookTile->getPiece()->getCastling()){
+							// check for positions in between 
+							if(!game->getTile(0,1)->getPiece() && !game->getTile(0,2)->getPiece() && !game->getTile(0,3)->getPiece()){
+								// king moves 2 spots left rook moves 3 to the right (0, 2) (0, 3)
+								game->getTile(0, 2)->setPiece(cp);
+								currentTile->setPiece(NULL);
+								game->getTile(0, 3)->setPiece(rookTile->getPiece());
+								rookTile->setPiece(NULL);
+								cp->setCastling();
+							}
+						}
+					}
+					// BLACK CASTLING RIGHT
+					if(curCol < newCol){ // moving left, check left rook for castling and pos
+						Tile* rookTile = game->getTile(0,0);
+						if(rookTile->getPiece() && rookTile->getPiece()->getType() == 'r' && rookTile->getPiece()->getCastling()){
+							// check for positions in between 
+							if(!game->getTile(0,5)->getPiece() && !game->getTile(0,6)->getPiece()){
+								// king moves 2 spots left rook moves 3 to the right (0, 2) (0, 3)
+								game->getTile(0, 6)->setPiece(cp);
+								currentTile->setPiece(NULL);
+								game->getTile(0, 5)->setPiece(rookTile->getPiece());
+								rookTile->setPiece(NULL);
+								cp->setCastling();
+							}
+						}
+					}
+					updateViews();
+					game->nextTurn();
+					continue;
+				}
+			}
+			// *********************** CASTLING END ********************************
+
 			// *********************** EN PASSANT BEGIN ******************************
 			// en passant checks
 			if(currentTile->getPiece()){ //if there is a chessPiece at the first coord

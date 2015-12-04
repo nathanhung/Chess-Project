@@ -4,10 +4,11 @@ En Pasant - DONE
 Castling
 Graphics
 Finish AI
-Checking if a Move puts you Into check
+Checking if a Move puts you Into check - DONE
 Check - DONE
 Checkmate - DONE 
-If player has 0 legal moves but is NOT in check, stalemate and game is draw
+Stalemate - DONE
+input from file - DONE
 assert statements everywhere for testing and /or redo's for "mispelled commands"
 Update UML and Final Design Document
 
